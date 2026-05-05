@@ -15,8 +15,10 @@ Last checked: 2026-05-05
 - Supabase Edge Functions are deployed:
   - `send-push-notification` v4
   - `delete-account` v2
+  - `disconnect-couple` v1
 - Supabase Function secrets are present for APNs, Supabase keys, and `BUNDLE_ID`.
 - Push Edge Function responses and logs do not expose stored APNs device tokens.
+- App disconnect flow uses the `disconnect-couple` Edge Function first, with DB RPC fallback for projects where `disconnect_couple` is installed.
 - `scripts/verify-release.sh` passes using repo-local `build/DerivedData`.
 - `scripts/archive-testflight.sh` creates `build/Tanjjet.xcarchive` using repo-local `build/ArchiveDerivedData`.
 - Release/TestFlight builds do not emit app logs directly; app logging is routed through DEBUG-only `AppLogger`, with message bodies, device tokens, pairing codes, and nicknames removed from log messages.
@@ -106,6 +108,7 @@ Deploy or redeploy the Edge Functions:
 ```sh
 supabase functions deploy send-push-notification --project-ref wxlfukoozmuwslppmkaf --use-api
 supabase functions deploy delete-account --project-ref wxlfukoozmuwslppmkaf --use-api
+supabase functions deploy disconnect-couple --project-ref wxlfukoozmuwslppmkaf --use-api
 ```
 
 Set these function secrets:
@@ -123,7 +126,7 @@ For TestFlight and App Store, keep `APNS_HOST` unset or set it to `api.push.appl
 
 Local note: Deno was not installed on the verification machine, so Edge Functions were reviewed in source form but not run locally.
 
-Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in the remote PostgREST schema cache during verification. Apply the SQL or migration before TestFlight testing the disconnect flow.
+Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in the remote PostgREST schema cache during verification. The app now uses the `disconnect-couple` Edge Function for the disconnect flow, but the SQL migration should still be applied before final App Store submission for schema and RLS hardening.
 
 ## App Store Connect
 
@@ -148,4 +151,4 @@ App Store Connect access for “4Q2Q7M7G5X” is required.
 
 Sign in to Xcode with an Apple account that has App Store Connect access for team `4Q2Q7M7G5X`, or rerun `scripts/upload-testflight.sh` with the App Store Connect API key environment variables shown above.
 
-Remote database schema application is also blocked until the Supabase database password is available to the CLI or the SQL is run manually in the Supabase SQL editor.
+Remote database schema application is still blocked until the Supabase database password is available to the CLI or the SQL is run manually in the Supabase SQL editor. TestFlight disconnect now has an Edge Function path, but final database hardening still needs the SQL migration.

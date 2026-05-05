@@ -16,4 +16,4 @@ EOF
 fi
 
 supabase db push --password "$SUPABASE_DB_PASSWORD"
-scripts/verify-supabase-remote.sh
+REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh
