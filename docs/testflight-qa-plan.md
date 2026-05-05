@@ -42,6 +42,7 @@ Use this plan after a build is available in TestFlight. Tanjjet is a two-person 
 | Widget | Add the lock-screen widget on Device B | The latest partner message appears after send or refresh |
 | Push | Device A sends while Device B allows notifications | Device B receives a push notification |
 | Badge | Open Device B after receiving a push notification | The app badge clears after launch or foregrounding |
+| Foreground push | Keep Device B open while Device A sends | Device B shows the banner/sound path without leaving a stale app badge |
 | Permission | Tap the notification permission banner | iOS permission prompt appears and app remains usable |
 | Logout | Log out from the overflow menu | App returns to Sign in with Apple |
 | Disconnect | Use `연결 해제` from the overflow menu | Widget data clears and user returns to pairing |

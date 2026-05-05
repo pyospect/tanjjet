@@ -154,7 +154,8 @@ extension PushNotificationService: UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([.banner, .sound, .badge])
+        handleNotification(notification.request.content.userInfo)
+        completionHandler([.banner, .sound])
     }
     
     /// 알림 탭 처리
