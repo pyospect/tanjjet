@@ -31,6 +31,12 @@ Last checked: 2026-05-05
 
 ## Commands
 
+Korean handoff guide for the final credential-gated steps:
+
+```text
+docs/release-handoff-ko.md
+```
+
 ```sh
 scripts/verify-release.sh
 ```

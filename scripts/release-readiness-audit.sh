@@ -66,6 +66,7 @@ check_required_files() {
     "Tanjjet/PrivacyInfo.xcprivacy"
     "TanjjetWidget/PrivacyInfo.xcprivacy"
     "docs/app-store-connect-metadata.md"
+    "docs/release-handoff-ko.md"
     "docs/testflight-checklist.md"
     "docs/testflight-qa-plan.md"
     "docs/privacy-policy.html"
