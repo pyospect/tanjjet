@@ -12,4 +12,17 @@ final class PairingCodeTests: XCTestCase {
             XCTAssertNil(code.rangeOfCharacter(from: allowedCharacters.inverted))
         }
     }
+    
+    func testGeneratedNonceUsesRequestedLengthAndSafeCharacters() throws {
+        let allowedCharacters = CharacterSet(charactersIn: "0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        
+        let nonce = try SupabaseService.shared.generateNonce(length: 64)
+        
+        XCTAssertEqual(nonce.count, 64)
+        XCTAssertNil(nonce.rangeOfCharacter(from: allowedCharacters.inverted))
+    }
+    
+    func testGeneratedNonceRejectsInvalidLength() {
+        XCTAssertThrowsError(try SupabaseService.shared.generateNonce(length: 0))
+    }
 }

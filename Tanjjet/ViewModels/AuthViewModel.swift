@@ -61,10 +61,18 @@ final class AuthViewModel: ObservableObject {
     
     /// Sign in with Apple 요청 설정
     func configureAppleSignIn(_ request: ASAuthorizationAppleIDRequest) {
-        let nonce = SupabaseService.shared.generateNonce()
-        currentNonce = nonce
         request.requestedScopes = [.fullName, .email]
-        request.nonce = SupabaseService.shared.sha256(nonce)
+        errorMessage = nil
+        currentNonce = nil
+        
+        do {
+            let nonce = try SupabaseService.shared.generateNonce()
+            currentNonce = nonce
+            request.nonce = SupabaseService.shared.sha256(nonce)
+        } catch {
+            print("[ERROR] Failed to prepare Apple Sign In nonce: \(error.localizedDescription)")
+            errorMessage = "로그인을 준비하지 못했습니다. 다시 시도해주세요."
+        }
     }
     
     /// Sign in with Apple 결과 처리

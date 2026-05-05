@@ -2,6 +2,7 @@ import Foundation
 import Supabase
 import AuthenticationServices
 import CryptoKit
+import Security
 
 /// Supabase 서비스 싱글톤
 final class SupabaseService {
@@ -36,13 +37,17 @@ final class SupabaseService {
     }
     
     /// Sign in with Apple nonce 생성
-    func generateNonce(length: Int = 32) -> String {
-        precondition(length > 0)
+    func generateNonce(length: Int = 32) throws -> String {
+        guard length > 0 else {
+            throw SupabaseError.nonceGenerationFailed
+        }
+        
         var randomBytes = [UInt8](repeating: 0, count: length)
         let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
         if errorCode != errSecSuccess {
-            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+            throw SupabaseError.nonceGenerationFailed
         }
+        
         let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         let nonce = randomBytes.map { byte in
             charset[Int(byte) % charset.count]
@@ -387,6 +392,7 @@ final class SupabaseService {
 enum SupabaseError: LocalizedError {
     case notAuthenticated
     case pairingFailed
+    case nonceGenerationFailed
     case server(String)
     case unknown
     
@@ -396,6 +402,8 @@ enum SupabaseError: LocalizedError {
             return "로그인이 필요합니다"
         case .pairingFailed:
             return "페어링에 실패했습니다"
+        case .nonceGenerationFailed:
+            return "로그인 보안값을 생성할 수 없습니다"
         case .server(let message):
             return message
         case .unknown:
