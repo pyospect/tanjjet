@@ -18,6 +18,7 @@ Last checked: 2026-05-05
 - Supabase Function secrets are present for APNs, Supabase keys, and `BUNDLE_ID`.
 - `scripts/verify-release.sh` passes using repo-local `build/DerivedData`.
 - `scripts/archive-testflight.sh` creates `build/Tanjjet.xcarchive` using repo-local `build/ArchiveDerivedData`.
+- Release/TestFlight builds do not emit app logs directly; app logging is routed through DEBUG-only `AppLogger`, with message bodies, device tokens, pairing codes, and nicknames removed from log messages.
 
 ## Commands
 
@@ -46,6 +47,8 @@ Upload the archive to App Store Connect internal TestFlight:
 ```sh
 scripts/upload-testflight.sh
 ```
+
+The upload script writes its export log to `build/testflight-upload.log` by default. Override with `UPLOAD_LOG=...` if needed.
 
 If Xcode is not signed in to an App Store Connect account for the team, upload with an App Store Connect API key:
 

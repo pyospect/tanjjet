@@ -12,6 +12,7 @@
 		10813B5A78D4AD7F69CE8628 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE257CB398BDFF5BD2EAE17 /* AppDelegate.swift */; };
 		13712A6F9B4A39A07D630118 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800B49F602A7FE73E7FCF51 /* PushNotificationService.swift */; };
 		171A16D1742181355BE2357F /* TanjjetTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */; };
+		1AC7BD4D6ABEA8B8F2FC1179 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3C39A7471F555CDF712E7 /* AppLogger.swift */; };
 		2340B86CE41C4443A90F528C /* TanjjetWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1662259CF0C7E9C445492EA /* TanjjetWidget.swift */; };
 		2DA4B0C2615588B154EA16FF /* TanjjetWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		355B6F15CEA49454131DE822 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB55A3766301004C377EBD /* MessageViewModel.swift */; };
@@ -98,6 +99,7 @@
 		BB1C4232B08CD4C49BE22C39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C7D4730E06E7D2C2570A8992 /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
 		C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetTheme.swift; sourceTree = "<group>"; };
+		CAC3C39A7471F555CDF712E7 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		D5E6429BE0489435FEF48657 /* AppGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupManager.swift; sourceTree = "<group>"; };
 		D8396672D810C70CAC394857 /* Couple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
 		D85766025C59482DD2A235DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				D5E6429BE0489435FEF48657 /* AppGroupManager.swift */,
+				CAC3C39A7471F555CDF712E7 /* AppLogger.swift */,
 				2800B49F602A7FE73E7FCF51 /* PushNotificationService.swift */,
 				9D8AFD37DD7834868663858C /* RealtimeService.swift */,
 				0390FAA3F8C2B89007CFC012 /* SupabaseService.swift */,
@@ -402,6 +405,7 @@
 			files = (
 				10813B5A78D4AD7F69CE8628 /* AppDelegate.swift in Sources */,
 				DE16310E3D4C83CB217F112E /* AppGroupManager.swift in Sources */,
+				1AC7BD4D6ABEA8B8F2FC1179 /* AppLogger.swift in Sources */,
 				8C9033FC6865ACCA0EFBA2DA /* AuthViewModel.swift in Sources */,
 				69CAA244FD9AB6AE809C919F /* ContentView.swift in Sources */,
 				87A85359D70F80B275C091BC /* Couple.swift in Sources */,

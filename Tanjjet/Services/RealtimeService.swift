@@ -22,7 +22,7 @@ final class RealtimeService: ObservableObject {
     func subscribeToMessages(coupleId: UUID) async {
         // 이미 구독 중이면 무시
         guard !isSubscribed else {
-            print("[INFO] Already subscribed")
+            AppLogger.info("Already subscribed")
             return
         }
         
@@ -47,14 +47,14 @@ final class RealtimeService: ObservableObject {
             try await channel.subscribeWithError()
         } catch {
             await channel.unsubscribe()
-            print("[ERROR] Failed to subscribe to messages: \(error)")
+            AppLogger.error("Failed to subscribe to messages: \(error)")
             return
         }
         
         self.channel = channel
         self.isSubscribed = true
         
-        print("[INFO] Subscribed to messages for couple: \(coupleId)")
+        AppLogger.info("Subscribed to messages for couple: \(coupleId)")
         
         // 변경사항 리스닝
         messageChangesTask = Task { [weak self] in
@@ -66,7 +66,7 @@ final class RealtimeService: ObservableObject {
     
     /// 변경사항 처리
     private func handleChange(_ action: AnyAction) async {
-        print("[INFO] Realtime change received: \(action)")
+        AppLogger.info("Realtime change received")
         
         switch action {
         case .insert(let insertAction):
@@ -105,7 +105,7 @@ final class RealtimeService: ObservableObject {
             
             let message = try action.decodeRecord(as: Message.self, decoder: decoder)
             
-            print("[INFO] New message received via Realtime: \(message.content)")
+            AppLogger.info("New message received via Realtime")
             
             // 위젯 업데이트 (파트너 메시지인 경우)
             if let currentUserId = await SupabaseService.shared.currentUserId,
@@ -123,7 +123,7 @@ final class RealtimeService: ObservableObject {
             onNewMessage?(message)
             
         } catch {
-            print("[ERROR] Failed to decode message: \(error)")
+            AppLogger.error("Failed to decode message: \(error)")
         }
     }
     
@@ -137,7 +137,7 @@ final class RealtimeService: ObservableObject {
         if let channel = channel {
             await channel.unsubscribe()
             self.channel = nil
-            print("[INFO] Unsubscribed from messages")
+            AppLogger.info("Unsubscribed from messages")
         }
         
         self.isSubscribed = false

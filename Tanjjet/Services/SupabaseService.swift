@@ -250,13 +250,13 @@ final class SupabaseService {
             let (_, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse,
                   (200..<300).contains(httpResponse.statusCode) else {
-                print("[ERROR] Push function returned an invalid response")
+                AppLogger.error("Push function returned an invalid response")
                 return
             }
             
-            print("[INFO] Push notification requested")
+            AppLogger.info("Push notification requested")
         } catch {
-            print("[ERROR] Push notification request failed: \(error.localizedDescription)")
+            AppLogger.error("Push notification request failed: \(error.localizedDescription)")
         }
     }
     

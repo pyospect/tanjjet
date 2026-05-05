@@ -21,7 +21,7 @@ final class AppGroupManager {
     /// 위젯에 표시할 메시지 저장
     func saveWidgetMessage(_ message: WidgetMessage) {
         guard let defaults = userDefaults else {
-            print("[ERROR] App Group UserDefaults not available")
+            AppLogger.error("App Group UserDefaults not available")
             return
         }
         
@@ -33,12 +33,12 @@ final class AppGroupManager {
             defaults.set(Date().timeIntervalSince1970, forKey: lastSyncKey)
             defaults.synchronize()
             
-            print("[INFO] Widget message saved: \(message.content)")
+            AppLogger.info("Widget message saved")
             
             // 위젯 타임라인 리로드
             reloadWidgetTimelines()
         } catch {
-            print("[ERROR] Failed to encode widget message: \(error.localizedDescription)")
+            AppLogger.error("Failed to encode widget message: \(error.localizedDescription)")
         }
     }
     
@@ -46,7 +46,7 @@ final class AppGroupManager {
     func loadWidgetMessage() -> WidgetMessage {
         guard let defaults = userDefaults,
               let data = defaults.data(forKey: widgetMessageKey) else {
-            print("[DEBUG] No widget message found, returning empty")
+            AppLogger.debug("No widget message found, returning empty")
             return .empty
         }
         
@@ -56,7 +56,7 @@ final class AppGroupManager {
             let message = try decoder.decode(WidgetMessage.self, from: data)
             return message
         } catch {
-            print("[ERROR] Failed to decode widget message: \(error.localizedDescription)")
+            AppLogger.error("Failed to decode widget message: \(error.localizedDescription)")
             return .empty
         }
     }
@@ -73,13 +73,13 @@ final class AppGroupManager {
     /// 모든 위젯 타임라인 리로드
     func reloadWidgetTimelines() {
         WidgetCenter.shared.reloadAllTimelines()
-        print("[INFO] Widget timelines reloaded")
+        AppLogger.info("Widget timelines reloaded")
     }
     
     /// 특정 위젯 타임라인 리로드
     func reloadTimeline(kind: String) {
         WidgetCenter.shared.reloadTimelines(ofKind: kind)
-        print("[INFO] Widget timeline reloaded for kind: \(kind)")
+        AppLogger.info("Widget timeline reloaded for kind: \(kind)")
     }
     
     // MARK: - Clear Data
@@ -92,6 +92,6 @@ final class AppGroupManager {
         defaults.synchronize()
         
         reloadWidgetTimelines()
-        print("[INFO] App Group data cleared")
+        AppLogger.info("App Group data cleared")
     }
 }

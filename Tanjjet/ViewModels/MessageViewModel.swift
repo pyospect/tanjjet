@@ -30,7 +30,7 @@ final class MessageViewModel: ObservableObject {
             couple = try await SupabaseService.shared.fetchCurrentCouple()
             
             guard let couple = couple else {
-                print("[ERROR] No couple found")
+                AppLogger.error("No couple found")
                 errorMessage = "연결 정보를 불러오지 못했습니다. 다시 시도해주세요."
                 isLoading = false
                 return
@@ -43,7 +43,7 @@ final class MessageViewModel: ObservableObject {
             
             // 메시지 로드
             messages = try await SupabaseService.shared.fetchRecentMessages()
-            print("[INFO] Loaded \(messages.count) messages")
+            AppLogger.info("Loaded \(messages.count) messages")
             
             // 파트너의 최신 메시지 로드
             latestPartnerMessage = try await SupabaseService.shared.fetchLatestPartnerMessage()
@@ -54,10 +54,10 @@ final class MessageViewModel: ObservableObject {
             // Realtime 구독 시작
             await subscribeToMessages(coupleId: couple.id)
             
-            print("[INFO] MessageViewModel initialized")
+            AppLogger.info("MessageViewModel initialized")
             
         } catch {
-            print("[ERROR] Initialize failed: \(error)")
+            AppLogger.error("Initialize failed: \(error)")
             errorMessage = "메시지를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
         }
         
@@ -95,10 +95,10 @@ final class MessageViewModel: ObservableObject {
             // 위젯 리로드
             AppGroupManager.shared.reloadWidgetTimelines()
             
-            print("[INFO] Message sent: \(sentContent)")
+            AppLogger.info("Message sent")
             
         } catch {
-            print("[ERROR] Send message failed: \(error)")
+            AppLogger.error("Send message failed: \(error)")
             errorMessage = "전송 실패. 다시 시도해주세요."
             // 전송 실패 시 입력 복원
             messageInput = sentContent
@@ -122,7 +122,7 @@ final class MessageViewModel: ObservableObject {
     
     /// 새 메시지 처리 (Realtime)
     private func handleNewMessage(_ message: Message) {
-        print("[INFO] Handling new message: \(message.id)")
+        AppLogger.info("Handling new message: \(message.id)")
         
         // 중복 방지하며 추가
         addMessageIfNotExists(message)
@@ -139,9 +139,9 @@ final class MessageViewModel: ObservableObject {
         if !messages.contains(where: { $0.id == message.id }) {
             // 최신 메시지가 맨 앞에 오도록 (역순 정렬)
             messages.insert(message, at: 0)
-            print("[INFO] Message added to list: \(message.id)")
+            AppLogger.info("Message added to list: \(message.id)")
         } else {
-            print("[INFO] Message already exists: \(message.id)")
+            AppLogger.info("Message already exists: \(message.id)")
         }
     }
     
@@ -167,9 +167,9 @@ final class MessageViewModel: ObservableObject {
             messages = try await SupabaseService.shared.fetchRecentMessages()
             latestPartnerMessage = try await SupabaseService.shared.fetchLatestPartnerMessage()
             updateWidgetData()
-            print("[INFO] Messages refreshed: \(messages.count) messages")
+            AppLogger.info("Messages refreshed: \(messages.count) messages")
         } catch {
-            print("[ERROR] Refresh failed: \(error)")
+            AppLogger.error("Refresh failed: \(error)")
         }
     }
     

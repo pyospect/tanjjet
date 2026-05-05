@@ -33,7 +33,7 @@ final class PairingViewModel: ObservableObject {
                 isPaired = existingCouple.isComplete
                 generatedCode = existingCouple.code
                 pairingMode = existingCouple.isComplete ? .none : .createCode
-                print("[INFO] Reusing existing pairing code: \(existingCouple.code)")
+                AppLogger.info("Reusing existing pairing code")
                 return
             }
             
@@ -41,9 +41,9 @@ final class PairingViewModel: ObservableObject {
             generatedCode = couple.code
             currentCouple = couple
             pairingMode = .createCode
-            print("[INFO] Pairing code created: \(couple.code)")
+            AppLogger.info("Pairing code created")
         } catch {
-            print("[ERROR] Create pairing code failed: \(error.localizedDescription)")
+            AppLogger.error("Create pairing code failed: \(error.localizedDescription)")
             errorMessage = "코드 생성에 실패했습니다"
         }
     }
@@ -76,12 +76,12 @@ final class PairingViewModel: ObservableObject {
             if success {
                 currentCouple = try await SupabaseService.shared.fetchCurrentCouple()
                 isPaired = currentCouple?.isComplete == true
-                print("[INFO] Successfully joined couple with code: \(code)")
+                AppLogger.info("Successfully joined couple")
             } else {
                 errorMessage = "유효하지 않은 코드입니다"
             }
         } catch {
-            print("[ERROR] Join couple failed: \(error.localizedDescription)")
+            AppLogger.error("Join couple failed: \(error.localizedDescription)")
             errorMessage = "연결에 실패했습니다"
         }
     }
@@ -110,13 +110,13 @@ final class PairingViewModel: ObservableObject {
                     pairingMode = .createCode
                 }
                 
-                print("[INFO] Pairing status: \(isPaired ? "paired" : "not paired")")
+                AppLogger.info("Pairing status: \(isPaired ? "paired" : "not paired")")
             } else {
                 currentCouple = nil
                 isPaired = false
             }
         } catch {
-            print("[ERROR] Check pairing status failed: \(error.localizedDescription)")
+            AppLogger.error("Check pairing status failed: \(error.localizedDescription)")
         }
     }
     
@@ -133,6 +133,6 @@ final class PairingViewModel: ObservableObject {
     /// 코드 복사
     func copyCodeToClipboard() {
         UIPasteboard.general.string = generatedCode
-        print("[INFO] Code copied to clipboard")
+        AppLogger.info("Code copied to clipboard")
     }
 }

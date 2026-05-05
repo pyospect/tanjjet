@@ -28,14 +28,14 @@ final class PushNotificationService: NSObject, ObservableObject {
                 await MainActor.run {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-                print("[INFO] Push notification permission granted")
+                AppLogger.info("Push notification permission granted")
             } else {
-                print("[INFO] Push notification permission denied")
+                AppLogger.info("Push notification permission denied")
             }
             
             return granted
         } catch {
-            print("[ERROR] Push notification permission error: \(error.localizedDescription)")
+            AppLogger.error("Push notification permission error: \(error.localizedDescription)")
             return false
         }
     }
@@ -75,7 +75,7 @@ final class PushNotificationService: NSObject, ObservableObject {
             self.deviceToken = tokenString
         }
         
-        print("[INFO] Device token: \(tokenString)")
+        AppLogger.info("Device token received")
         
         // Supabase에 토큰 저장
         Task {
@@ -86,15 +86,15 @@ final class PushNotificationService: NSObject, ObservableObject {
     /// Supabase에 디바이스 토큰 저장
     private func saveTokenToSupabase(_ token: String) async {
         guard let userId = await SupabaseService.shared.currentUserId else {
-            print("[ERROR] Cannot save device token: not authenticated")
+            AppLogger.error("Cannot save device token: not authenticated")
             return
         }
         
         do {
             try await SupabaseService.shared.saveDeviceToken(token: token, userId: userId)
-            print("[INFO] Device token saved to Supabase")
+            AppLogger.info("Device token saved to Supabase")
         } catch {
-            print("[ERROR] Failed to save device token: \(error.localizedDescription)")
+            AppLogger.error("Failed to save device token: \(error.localizedDescription)")
         }
     }
     
@@ -102,7 +102,7 @@ final class PushNotificationService: NSObject, ObservableObject {
     
     /// 푸시 알림 수신 처리
     func handleNotification(_ userInfo: [AnyHashable: Any]) {
-        print("[INFO] Received notification: \(userInfo)")
+        AppLogger.info("Received notification")
         
         // 위젯 업데이트
         AppGroupManager.shared.reloadWidgetTimelines()
@@ -127,9 +127,9 @@ final class PushNotificationService: NSObject, ObservableObject {
                 self.deviceToken = nil
             }
             
-            print("[INFO] Device token removed")
+            AppLogger.info("Device token removed")
         } catch {
-            print("[ERROR] Failed to remove device token: \(error.localizedDescription)")
+            AppLogger.error("Failed to remove device token: \(error.localizedDescription)")
         }
     }
 }

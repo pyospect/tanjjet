@@ -42,15 +42,15 @@ final class AuthViewModel: ObservableObject {
                 try await loadSignedInContext()
                 authState = .signedIn
                 await PushNotificationService.shared.registerForRemoteNotificationsIfAuthorized()
-                print("[INFO] User signed in")
+                AppLogger.info("User signed in")
             } else {
                 currentProfile = nil
                 currentCouple = nil
                 authState = .signedOut
-                print("[INFO] User not signed in")
+                AppLogger.info("User not signed in")
             }
         } catch {
-            print("[ERROR] Check auth status failed: \(error.localizedDescription)")
+            AppLogger.error("Check auth status failed: \(error.localizedDescription)")
             currentProfile = nil
             currentCouple = nil
             authState = .signedOut
@@ -70,7 +70,7 @@ final class AuthViewModel: ObservableObject {
             currentNonce = nonce
             request.nonce = SupabaseService.shared.sha256(nonce)
         } catch {
-            print("[ERROR] Failed to prepare Apple Sign In nonce: \(error.localizedDescription)")
+            AppLogger.error("Failed to prepare Apple Sign In nonce: \(error.localizedDescription)")
             errorMessage = "로그인을 준비하지 못했습니다. 다시 시도해주세요."
         }
     }
@@ -117,10 +117,10 @@ final class AuthViewModel: ObservableObject {
                 
                 authState = .signedIn
                 await PushNotificationService.shared.registerForRemoteNotificationsIfAuthorized()
-                print("[INFO] Sign in with Apple successful")
+                AppLogger.info("Sign in with Apple successful")
                 
             } catch {
-                print("[ERROR] Sign in with Apple failed: \(error.localizedDescription)")
+                AppLogger.error("Sign in with Apple failed: \(error.localizedDescription)")
                 errorMessage = "로그인에 실패했습니다: \(error.localizedDescription)"
             }
             
@@ -128,9 +128,9 @@ final class AuthViewModel: ObservableObject {
             if let authError = error as? ASAuthorizationError,
                authError.code == .canceled {
                 // 사용자가 취소한 경우
-                print("[INFO] Sign in with Apple canceled")
+                AppLogger.info("Sign in with Apple canceled")
             } else {
-                print("[ERROR] Sign in with Apple error: \(error.localizedDescription)")
+                AppLogger.error("Sign in with Apple error: \(error.localizedDescription)")
                 errorMessage = "로그인 중 오류가 발생했습니다"
             }
         }
@@ -160,10 +160,10 @@ final class AuthViewModel: ObservableObject {
             currentProfile = nil
             currentCouple = nil
             authState = .signedOut
-            print("[INFO] Signed out successfully")
+            AppLogger.info("Signed out successfully")
             
         } catch {
-            print("[ERROR] Sign out failed: \(error.localizedDescription)")
+            AppLogger.error("Sign out failed: \(error.localizedDescription)")
             errorMessage = "로그아웃에 실패했습니다"
         }
         
@@ -177,7 +177,7 @@ final class AuthViewModel: ObservableObject {
         do {
             try await loadSignedInContext()
         } catch {
-            print("[ERROR] Refresh profile failed: \(error.localizedDescription)")
+            AppLogger.error("Refresh profile failed: \(error.localizedDescription)")
         }
     }
     
@@ -188,9 +188,9 @@ final class AuthViewModel: ObservableObject {
                 ProfileUpdate(nickname: nickname)
             )
             try await loadSignedInContext()
-            print("[INFO] Nickname updated: \(nickname)")
+            AppLogger.info("Nickname updated")
         } catch {
-            print("[ERROR] Update nickname failed: \(error.localizedDescription)")
+            AppLogger.error("Update nickname failed: \(error.localizedDescription)")
             errorMessage = "닉네임 변경에 실패했습니다"
         }
     }
@@ -204,9 +204,9 @@ final class AuthViewModel: ObservableObject {
             currentCouple = nil
             try await loadSignedInContext()
             AppGroupManager.shared.clearAllData()
-            print("[INFO] Couple disconnected")
+            AppLogger.info("Couple disconnected")
         } catch {
-            print("[ERROR] Disconnect couple failed: \(error.localizedDescription)")
+            AppLogger.error("Disconnect couple failed: \(error.localizedDescription)")
             errorMessage = "연결 해제에 실패했습니다"
         }
         
@@ -233,10 +233,10 @@ final class AuthViewModel: ObservableObject {
             currentProfile = nil
             currentCouple = nil
             authState = .signedOut
-            print("[INFO] Account deleted")
+            AppLogger.info("Account deleted")
             
         } catch {
-            print("[ERROR] Delete account failed: \(error.localizedDescription)")
+            AppLogger.error("Delete account failed: \(error.localizedDescription)")
             errorMessage = "회원 탈퇴에 실패했습니다"
         }
         
