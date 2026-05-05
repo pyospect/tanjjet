@@ -182,16 +182,19 @@ final class AuthViewModel: ObservableObject {
     }
     
     /// 닉네임 업데이트
-    func updateNickname(_ nickname: String) async {
+    @discardableResult
+    func updateNickname(_ nickname: String) async -> Bool {
         do {
             try await SupabaseService.shared.updateProfile(
                 ProfileUpdate(nickname: nickname)
             )
             try await loadSignedInContext()
             AppLogger.info("Nickname updated")
+            return true
         } catch {
             AppLogger.error("Update nickname failed: \(error.localizedDescription)")
             errorMessage = "닉네임 변경에 실패했습니다"
+            return false
         }
     }
     

@@ -14,48 +14,58 @@ struct NicknameSettingView: View {
             VStack(spacing: 32) {
                 Spacer()
                 
-                // 아이콘
-                Image(systemName: "person.circle.fill")
-                    .font(.system(size: 80))
-                    .foregroundStyle(.pink)
+                ZStack {
+                    Circle()
+                        .fill(TanjjetTheme.accent.opacity(0.12))
+                        .frame(width: 96, height: 96)
+
+                    Image(systemName: "person.crop.circle.fill")
+                        .font(.system(size: 54, weight: .semibold))
+                        .foregroundStyle(TanjjetTheme.accentGradient)
+                }
                 
-                // 설명
                 VStack(spacing: 8) {
                     Text("이름을 설정해주세요")
                         .font(.title2.bold())
+                        .foregroundStyle(TanjjetTheme.ink)
                     
                     Text("파트너에게 표시될 이름이에요")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 
-                // 입력 필드
                 VStack(spacing: 8) {
                     TextField("이름 입력", text: $nickname)
                         .textFieldStyle(.plain)
                         .font(.title3)
                         .multilineTextAlignment(.center)
                         .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
+                        .background(Color(.secondarySystemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                         .padding(.horizontal, 40)
+                        .onChange(of: nickname) { _, newValue in
+                            if newValue.count > 10 {
+                                nickname = String(newValue.prefix(10))
+                            }
+                        }
                     
                     Text("\(nickname.count)/10")
                         .font(.caption)
-                        .foregroundColor(nickname.count > 10 ? .red : .secondary)
+                        .foregroundColor(.secondary)
                 }
                 
-                // 에러 메시지
                 if let error = errorMessage {
                     Text(error)
                         .font(.caption)
                         .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
                 }
                 
                 Spacer()
                 
-                // 저장 버튼
                 Button {
+                    TanjjetTheme.impact(.medium)
                     saveNickname()
                 } label: {
                     if isLoading {
@@ -65,12 +75,7 @@ struct NicknameSettingView: View {
                         Text("저장")
                     }
                 }
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .frame(height: 54)
-                .background(isValidNickname ? .pink : Color(.systemGray4))
-                .foregroundColor(.white)
-                .cornerRadius(12)
+                .buttonStyle(TanjjetPrimaryButtonStyle(isDisabled: !isValidNickname || isLoading))
                 .padding(.horizontal)
                 .disabled(!isValidNickname || isLoading)
                 
@@ -89,6 +94,7 @@ struct NicknameSettingView: View {
             .onAppear {
                 nickname = authViewModel.currentProfile?.nickname ?? ""
             }
+            .background(TanjjetTheme.screenBackground.ignoresSafeArea())
         }
     }
     
@@ -109,9 +115,14 @@ struct NicknameSettingView: View {
         errorMessage = nil
         
         Task {
-            await authViewModel.updateNickname(trimmed)
+            let didSave = await authViewModel.updateNickname(trimmed)
             isLoading = false
-            isPresented = false
+
+            if didSave {
+                isPresented = false
+            } else {
+                errorMessage = authViewModel.errorMessage ?? "이름을 저장하지 못했습니다. 다시 시도해주세요."
+            }
         }
     }
 }
