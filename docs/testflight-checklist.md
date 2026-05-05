@@ -11,6 +11,7 @@ Last checked: 2026-05-05
 - App and widget `CFBundleVersion` now match.
 - App and widget include `PrivacyInfo.xcprivacy` for App Group `UserDefaults`.
 - Push entitlement is `development` for Debug and `production` for Release.
+- App target is iPhone-only (`TARGETED_DEVICE_FAMILY = 1`) so the current iPhone screenshot set matches the submitted device family.
 - App no longer implements remote-notification background fetch without declaring a matching background mode.
 - Supabase Edge Functions are deployed:
   - `send-push-notification` v4
@@ -148,6 +149,7 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
   - Device token for push notifications.
 - Confirm the hosted support and privacy-policy URLs before submission. GitHub Pages is already configured from `master` branch `/docs`, so merge this PR before final App Store submission to publish the updated privacy policy.
 - Upload screenshots from `screenshots/` or capture updated ones after UI review.
+- Current screenshots are `1242 x 2688`, an accepted portrait size for Apple's 6.5-inch iPhone slot when 6.9-inch screenshots are not provided.
 - Add a tester note explaining that the app requires two accounts or two devices to verify pairing.
 
 ## Current Blockers

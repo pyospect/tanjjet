@@ -52,6 +52,7 @@ check_required_files() {
     "TanjjetWidget/PrivacyInfo.xcprivacy"
     "docs/app-store-connect-metadata.md"
     "docs/testflight-checklist.md"
+    "docs/testflight-qa-plan.md"
     "docs/privacy-policy.html"
     "docs/support.html"
   )
@@ -62,6 +63,61 @@ check_required_files() {
       ok "$file exists."
     else
       fail "$file is missing."
+    fi
+  done
+}
+
+check_device_family() {
+  if grep -q 'TARGETED_DEVICE_FAMILY: "1"' project.yml; then
+    ok "project.yml targets iPhone only."
+  else
+    fail "project.yml should set TARGETED_DEVICE_FAMILY to \"1\" unless iPad screenshots and QA are added."
+  fi
+
+  if [[ -f Tanjjet.xcodeproj/project.pbxproj ]]; then
+    local build_settings
+    build_settings="$(xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -showBuildSettings -configuration Release 2>/dev/null || true)"
+
+    if [[ "$build_settings" == *"PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet"* &&
+          "$build_settings" == *"TARGETED_DEVICE_FAMILY = 1"* &&
+          "$build_settings" != *"TARGETED_DEVICE_FAMILY = 1,2"* ]]; then
+      ok "Generated Tanjjet scheme targets iPhone only."
+    else
+      fail "Generated Tanjjet scheme should target iPhone only. Run xcodegen generate after editing project.yml."
+    fi
+  else
+    warn "Tanjjet.xcodeproj is missing; run xcodegen generate before archiving."
+  fi
+}
+
+check_screenshots() {
+  local screenshots=(
+    "screenshots/screenshot_1_lockscreen.png"
+    "screenshots/screenshot_2_pairing.png"
+    "screenshots/screenshot_3_message.png"
+  )
+
+  local screenshot
+  for screenshot in "${screenshots[@]}"; do
+    if [[ ! -s "$screenshot" ]]; then
+      fail "$screenshot is missing or empty."
+      continue
+    fi
+
+    if ! have_command sips; then
+      warn "sips is not available; skipping screenshot dimension check for $screenshot."
+      continue
+    fi
+
+    local width
+    local height
+    width="$(sips -g pixelWidth "$screenshot" 2>/dev/null | awk '/pixelWidth:/ {print $2}')"
+    height="$(sips -g pixelHeight "$screenshot" 2>/dev/null | awk '/pixelHeight:/ {print $2}')"
+
+    if [[ "$width" == "1242" && "$height" == "2688" ]]; then
+      ok "$screenshot is 1242 x 2688."
+    else
+      warn "$screenshot is ${width:-unknown} x ${height:-unknown}; expected 1242 x 2688 for the current iPhone screenshot set."
     fi
   done
 }
@@ -184,6 +240,8 @@ EOF
 
 check_clean_worktree
 check_required_files
+check_device_family
+check_screenshots
 check_privacy_manifests
 check_archive
 check_app_store_connect_auth

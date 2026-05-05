@@ -77,9 +77,11 @@ Tracking:
 
 ## Screenshot Checklist
 
-Use the existing screenshots as placeholders or recapture final App Store assets after TestFlight verification:
+The app is configured as iPhone-only (`TARGETED_DEVICE_FAMILY = 1`). Use the existing iPhone screenshots as placeholders or recapture final App Store assets after TestFlight verification:
 - `screenshots/screenshot_1_lockscreen.png`
 - `screenshots/screenshot_2_pairing.png`
 - `screenshots/screenshot_3_message.png`
 
-Before App Store submission, confirm screenshots match the final build, device sizes, and Apple screenshot slot requirements.
+The current files are `1242 x 2688`, which is an accepted portrait size for Apple's 6.5-inch iPhone screenshot slot when 6.9-inch screenshots are not provided: <https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/>.
+
+Before App Store submission, confirm screenshots match the final TestFlight build and actual App Store Connect slots.
