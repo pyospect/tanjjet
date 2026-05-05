@@ -19,35 +19,40 @@ fi
 
 failures=0
 
-check_disconnect_rpc() {
+check_rpc() {
+  local rpc_name="$1"
+  local payload="$2"
+  local required="$3"
   local body_file
   local http_code
 
   body_file="$(mktemp)"
   http_code="$(
     curl -sS -o "$body_file" -w '%{http_code}' \
-      -X POST "$SUPABASE_URL/rest/v1/rpc/disconnect_couple" \
+      -X POST "$SUPABASE_URL/rest/v1/rpc/$rpc_name" \
       -H "apikey: $ANON_KEY" \
       -H "Authorization: Bearer $ANON_KEY" \
       -H 'Content-Type: application/json' \
-      -d '{"disconnecting_user_id":"00000000-0000-0000-0000-000000000000"}'
+      -d "$payload"
   )"
 
   if [[ "$http_code" == "200" ]]; then
-    echo "OK: disconnect_couple RPC exists and responded."
-  elif [[ "$REQUIRE_DISCONNECT_RPC" == "1" ]]; then
-    echo "ERROR: disconnect_couple RPC check failed with HTTP $http_code." >&2
+    echo "OK: $rpc_name RPC exists and responded."
+    rm -f "$body_file"
+    return 0
+  elif [[ "$required" == "1" ]]; then
+    echo "ERROR: $rpc_name RPC check failed with HTTP $http_code." >&2
     cat "$body_file" >&2
     echo >&2
     failures=1
   else
-    echo "WARN: disconnect_couple RPC check failed with HTTP $http_code." >&2
+    echo "WARN: $rpc_name RPC check failed with HTTP $http_code." >&2
     cat "$body_file" >&2
     echo >&2
-    echo "WARN: App disconnect uses the disconnect-couple Edge Function fallback, but apply the SQL migration before final App Store submission." >&2
   fi
 
   rm -f "$body_file"
+  return 1
 }
 
 check_function_gateway() {
@@ -76,7 +81,12 @@ check_function_gateway() {
   rm -f "$body_file"
 }
 
-check_disconnect_rpc
+check_rpc "join_couple" '{"input_code":"000000","joining_user_id":"00000000-0000-0000-0000-000000000000"}' "1" || true
+if ! check_rpc "disconnect_couple" '{"disconnecting_user_id":"00000000-0000-0000-0000-000000000000"}' "$REQUIRE_DISCONNECT_RPC"; then
+  if [[ "$REQUIRE_DISCONNECT_RPC" != "1" ]]; then
+    echo "WARN: App disconnect uses the disconnect-couple Edge Function fallback, but apply the SQL migration before final App Store submission." >&2
+  fi
+fi
 check_function_gateway "send-push-notification"
 check_function_gateway "delete-account"
 check_function_gateway "disconnect-couple"
@@ -87,7 +97,7 @@ if [[ "$failures" -ne 0 ]]; then
 Supabase remote verification failed.
 If disconnect-couple is missing, deploy it with:
   supabase functions deploy disconnect-couple --project-ref wxlfukoozmuwslppmkaf --use-api
-If REQUIRE_DISCONNECT_RPC=1 failed, run supabase/migrations/20260505041000_pairing_push_account_hardening.sql
+If an RPC failed, run supabase/migrations/20260505041000_pairing_push_account_hardening.sql
 in the Supabase SQL editor, or run SUPABASE_DB_PASSWORD=... scripts/apply-supabase-db.sh.
 EOF
   exit 1
