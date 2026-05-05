@@ -88,6 +88,18 @@ Or apply the CLI migration after linking with the database password:
 SUPABASE_DB_PASSWORD=... scripts/apply-supabase-db.sh
 ```
 
+For an existing Supabase project where only the hardening changes are missing, run this migration in the SQL editor:
+
+```text
+supabase/migrations/20260505041000_pairing_push_account_hardening.sql
+```
+
+After applying SQL manually or through the CLI, verify the remote project:
+
+```sh
+scripts/verify-supabase-remote.sh
+```
+
 Deploy or redeploy the Edge Functions:
 
 ```sh
