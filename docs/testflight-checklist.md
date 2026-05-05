@@ -20,17 +20,13 @@ Last checked: 2026-05-05
 ## Commands
 
 ```sh
-xcodegen generate
-xcodebuild test -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -configuration Debug
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'generic/platform=iOS Simulator' -configuration Debug build
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'generic/platform=iOS Simulator' -configuration Release build
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -configuration Release -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build
+scripts/verify-release.sh
 ```
 
 Archive command after Apple account/provisioning is ready:
 
 ```sh
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -configuration Release -destination 'generic/platform=iOS' -archivePath build/Tanjjet.xcarchive -allowProvisioningUpdates archive
+scripts/archive-testflight.sh
 ```
 
 ## Apple Developer Setup
@@ -59,7 +55,7 @@ Database/push_notification_schema.sql
 Or apply the CLI migration after linking with the database password:
 
 ```sh
-SUPABASE_DB_PASSWORD=... supabase db push --password "$SUPABASE_DB_PASSWORD"
+SUPABASE_DB_PASSWORD=... scripts/apply-supabase-db.sh
 ```
 
 Deploy or redeploy the Edge Functions:

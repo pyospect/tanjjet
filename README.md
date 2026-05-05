@@ -74,11 +74,7 @@ TestFlight 업로드 전 체크리스트는 [`docs/testflight-checklist.md`](doc
 로컬 검증 명령:
 
 ```sh
-xcodegen generate
-xcodebuild test -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -configuration Debug
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'generic/platform=iOS Simulator' -configuration Debug build
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -destination 'generic/platform=iOS Simulator' -configuration Release build
-xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -configuration Release -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build
+scripts/verify-release.sh
 ```
 
 ## 라이선스
