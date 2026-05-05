@@ -55,6 +55,7 @@ check_clean_worktree() {
 check_required_files() {
   local files=(
     "project.yml"
+    ".env.release.example"
     "exportOptions-testflight.plist"
     "Tanjjet/PrivacyInfo.xcprivacy"
     "TanjjetWidget/PrivacyInfo.xcprivacy"

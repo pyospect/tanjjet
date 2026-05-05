@@ -6,6 +6,28 @@ cd "$ROOT_DIR"
 
 PROJECT_REF="wxlfukoozmuwslppmkaf"
 MIGRATION_PATH="supabase/migrations/20260505041000_pairing_push_account_hardening.sql"
+DEFAULT_ENV_FILE=".env.release"
+
+load_release_env() {
+  local env_file="${RELEASE_ENV_FILE:-}"
+  if [[ -z "$env_file" && -f "$DEFAULT_ENV_FILE" ]]; then
+    env_file="$DEFAULT_ENV_FILE"
+  fi
+
+  if [[ -z "$env_file" ]]; then
+    return
+  fi
+
+  if [[ ! -f "$env_file" ]]; then
+    echo "Release env file not found: $env_file" >&2
+    exit 1
+  fi
+
+  set -a
+  # shellcheck disable=SC1090
+  source "$env_file"
+  set +a
+}
 
 run_step() {
   echo
@@ -58,6 +80,7 @@ EOF
   exit 1
 }
 
+load_release_env
 require_clean_worktree
 ensure_supabase_strict_state
 run_step scripts/verify-release.sh

@@ -81,6 +81,12 @@ Once Supabase DB access and App Store Connect access are ready, run the full fin
 SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
 ```
 
+Alternatively, copy `.env.release.example` to `.env.release`, fill in the real Supabase and App Store Connect values, and run:
+
+```sh
+scripts/finalize-testflight-release.sh
+```
+
 The final pipeline checks or applies the strict Supabase migration, runs release verification, recreates the archive, uploads to TestFlight, and then reruns the release-readiness audit.
 
 ## Apple Developer Setup
