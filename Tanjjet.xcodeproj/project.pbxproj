@@ -634,7 +634,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.tests;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tanjjet.app/Tanjjet";
 			};
 			name = Debug;
@@ -677,7 +677,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.tests;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tanjjet.app/Tanjjet";
 			};
 			name = Release;

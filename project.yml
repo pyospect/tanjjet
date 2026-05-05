@@ -86,6 +86,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.pyospect.tanjjet.tests
         GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
     dependencies:
       - target: Tanjjet
 
