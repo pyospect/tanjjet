@@ -51,7 +51,7 @@ open Tanjjet.xcodeproj
 1. [Supabase](https://supabase.com)에서 새 프로젝트 생성
 2. `Database/schema.sql`, `Database/push_notification_schema.sql` 실행
 3. 또는 `supabase/migrations/`의 마이그레이션을 `supabase db push`로 적용
-4. `send-push-notification`, `delete-account` Edge Function 배포
+4. `send-push-notification`, `delete-account`, `disconnect-couple` Edge Function 배포
 5. `Tanjjet/Services/SupabaseService.swift`의 Project URL과 Anon Key 확인
 
 ### 4. Sign in with Apple (Supabase 설정)
@@ -83,6 +83,12 @@ Archive와 TestFlight 업로드:
 ```sh
 scripts/archive-testflight.sh
 scripts/upload-testflight.sh
+```
+
+최종 배포 직전에는 현재 아카이브, App Store Connect 인증, Supabase strict gate, 공개 문서 URL을 한 번에 확인합니다.
+
+```sh
+scripts/release-readiness-audit.sh
 ```
 
 Xcode에 App Store Connect 권한이 있는 계정이 없으면, App Store Connect API 키 환경변수와 함께 업로드할 수 있습니다. 자세한 값 이름은 체크리스트를 확인하세요.

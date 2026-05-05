@@ -62,6 +62,14 @@ APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx \
 scripts/upload-testflight.sh
 ```
 
+Final readiness audit after archive creation and before TestFlight/App Store release:
+
+```sh
+scripts/release-readiness-audit.sh
+```
+
+This script checks the current archive, App Store Connect authentication readiness, strict Supabase remote state, public support/privacy URLs, and PR state. It exits non-zero while an external blocker remains.
+
 ## Apple Developer Setup
 
 - Add the Apple Developer account in Xcode settings.
