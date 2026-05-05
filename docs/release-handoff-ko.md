@@ -22,6 +22,8 @@ TestFlight 업로드를 하려면 둘 중 하나가 필요합니다.
 - Xcode에 team `4Q2Q7M7G5X` 권한이 있는 Apple 계정으로 로그인
 - 또는 App Store Connect API 키 3종 준비
 
+현재 이 Mac의 키체인에는 team `4Q2Q7M7G5X`의 `iPhone Distribution` 인증서가 있지만, `scripts/upload-testflight.sh` 실행 결과는 `exportArchive Failed to Use Accounts`입니다. 즉 지금 막힌 지점은 인증서 부재가 아니라 Xcode/App Store Connect 계정 접근 또는 API 키 인증입니다.
+
 API 키로 진행할 경우 `.env.release`에 아래 값을 넣습니다.
 
 ```sh
@@ -110,6 +112,14 @@ ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh
 ```
 
 이 옵션은 예전 업로드 실패 로그 때문에 preflight가 멈추는 것을 건너뜁니다. 실제 업로드 권한이 없으면 업로드 단계에서 다시 실패합니다.
+
+Xcode 로그인을 완료했는지 빠르게 확인하려면 아래 명령을 실행합니다.
+
+```sh
+ASSUME_XCODE_ACCOUNT_READY=1 scripts/check-release-credentials.sh
+```
+
+Supabase blocker만 남고 App Store Connect blocker가 사라지면 preflight 기준으로는 Xcode 로그인 경로가 준비된 상태입니다. 그래도 실제 권한은 업로드 단계에서 최종 확인됩니다.
 
 Supabase SQL editor에서 migration을 직접 실행했다면, 최종 파이프라인 전에 strict gate만 따로 확인할 수 있습니다.
 

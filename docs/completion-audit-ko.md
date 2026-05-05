@@ -30,7 +30,7 @@ Last checked: 2026-05-05
 | Supabase Edge Functions | `send-push-notification`, `delete-account`, `disconnect-couple` 배포 및 unauthenticated 401 확인 | 완료 |
 | Supabase 원격 DB strict gate | `scripts/verify-supabase-remote.sh`가 `disconnect_couple` RPC 404를 보고 | 미완료 |
 | TestFlight archive | `build/Tanjjet.xcarchive` 존재, bundle id와 signing identity 감사 통과 | 완료 |
-| TestFlight upload | `scripts/upload-testflight.sh`가 App Store Connect 접근 권한 부족으로 차단됨 | 미완료 |
+| TestFlight upload | 키체인에는 team `4Q2Q7M7G5X`의 `iPhone Distribution` 인증서가 있으나, `scripts/upload-testflight.sh`가 `exportArchive Failed to Use Accounts`로 App Store Connect 계정/API 접근 부족을 보고 | 미완료 |
 | 자격 증명 preflight | `scripts/check-release-credentials.sh`가 Supabase DB password, App Store Connect API 키/Xcode 계정 경로, 로컬 디스크 여유 공간을 긴 빌드 전에 확인 | 완료 |
 | 최종 파이프라인 | `scripts/finalize-testflight-release.sh`가 Supabase/App Store Connect preflight 블로커를 함께 표시 | 완료 |
 | 한국어 인수인계 | `docs/release-handoff-ko.md`에 남은 권한 입력, DB 마이그레이션, 최종 실행 순서, 성공 후 QA 절차 정리 | 완료 |
