@@ -86,6 +86,7 @@ check_required_files() {
     "docs/support.html"
     "scripts/check-release-credentials.sh"
     "scripts/load-release-env.sh"
+    "scripts/export-testflight-ipa.sh"
     "scripts/finalize-testflight-release.sh"
   )
 
@@ -326,6 +327,19 @@ check_archive() {
   fi
 }
 
+check_local_app_store_export() {
+  local export_path="${EXPORT_PATH:-build/testflight-export-only}"
+  local export_log="${EXPORT_LOG:-build/testflight-export-only.log}"
+
+  if [[ -s "$export_path/Tanjjet.ipa" && -f "$export_log" ]] &&
+     grep -q '\*\* EXPORT SUCCEEDED \*\*' "$export_log"; then
+    ok "Local App Store export produced $export_path/Tanjjet.ipa."
+    return
+  fi
+
+  warn "Local App Store export has not been verified. Run scripts/export-testflight-ipa.sh to confirm signing/provisioning without uploading."
+}
+
 check_app_store_connect_auth() {
   local key_path="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
   local key_id="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
@@ -440,6 +454,7 @@ check_app_icon
 check_privacy_manifests
 check_database_hardening
 check_archive
+check_local_app_store_export
 check_app_store_connect_auth
 check_supabase_strict
 check_docs_urls

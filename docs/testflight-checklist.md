@@ -63,6 +63,14 @@ scripts/archive-testflight.sh
 
 The archive script clears the default `build/Tanjjet.xcarchive` and `build/ArchiveDerivedData` before rebuilding so repeated release attempts stay deterministic.
 
+Verify local App Store signing/provisioning without uploading:
+
+```sh
+scripts/export-testflight-ipa.sh
+```
+
+This creates `build/testflight-export-only/Tanjjet.ipa` using automatic signing and the local Xcode-managed App Store profiles. It does not require App Store Connect upload credentials.
+
 Upload the archive to App Store Connect internal TestFlight:
 
 ```sh

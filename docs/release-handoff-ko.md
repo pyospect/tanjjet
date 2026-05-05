@@ -24,6 +24,8 @@ TestFlight 업로드를 하려면 둘 중 하나가 필요합니다.
 
 현재 이 Mac의 키체인에는 team `4Q2Q7M7G5X`의 `iPhone Distribution` 인증서가 있지만, `scripts/upload-testflight.sh` 실행 결과는 `exportArchive Failed to Use Accounts`입니다. 즉 지금 막힌 지점은 인증서 부재가 아니라 Xcode/App Store Connect 계정 접근 또는 API 키 인증입니다.
 
+또한 `scripts/export-testflight-ipa.sh`로 로컬 App Store용 IPA export는 성공했습니다. 즉 Tanjjet 앱/위젯용 App Store provisioning profile과 distribution signing 자체는 현재 Mac에 준비되어 있습니다.
+
 API 키로 진행할 경우 `.env.release`에 아래 값을 넣습니다.
 
 ```sh
@@ -101,6 +103,12 @@ scripts/finalize-testflight-release.sh
 - TestFlight용 archive 생성
 - App Store Connect/TestFlight 업로드
 - 최종 릴리즈 감사
+
+업로드 전에 서명/프로비저닝만 따로 확인하려면 아래 명령을 실행합니다. 이 명령은 App Store Connect에 업로드하지 않고 `build/testflight-export-only/Tanjjet.ipa`만 만듭니다.
+
+```sh
+scripts/export-testflight-ipa.sh
+```
 
 ## Xcode 로그인으로 진행하는 경우
 
