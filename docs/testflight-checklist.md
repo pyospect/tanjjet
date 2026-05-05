@@ -9,7 +9,7 @@ Last checked: 2026-05-05
 - Release simulator build passes.
 - Release iPhoneOS build passes with code signing disabled.
 - App and widget `CFBundleVersion` now match.
-- App and widget include `PrivacyInfo.xcprivacy` for App Group `UserDefaults`.
+- App and widget include `PrivacyInfo.xcprivacy` for App Group `UserDefaults`; the app manifest also declares User ID, Name, Other User Content, and Device ID as linked app-functionality data, with no tracking.
 - Push entitlement is `development` for Debug and `production` for Release.
 - App target is iPhone-only (`TARGETED_DEVICE_FAMILY = 1`) so the current iPhone screenshot set matches the submitted device family.
 - App no longer implements remote-notification background fetch without declaring a matching background mode.
@@ -144,9 +144,9 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
 - Use `docs/testflight-qa-plan.md` for the two-device TestFlight smoke test before submitting for App Review.
 - Confirm privacy labels match the app behavior:
   - Account/user identifier through Sign in with Apple and Supabase Auth.
-  - User-provided nickname.
-  - User-generated messages.
-  - Device token for push notifications.
+  - User-provided nickname as Name.
+  - User-generated messages as Other User Content.
+  - Device token for push notifications as Device ID.
 - Confirm the hosted support and privacy-policy URLs before submission. GitHub Pages is already configured from `master` branch `/docs`, so merge this PR before final App Store submission to publish the updated privacy policy.
 - Upload screenshots from `screenshots/` or capture updated ones after UI review.
 - Current screenshots are `1242 x 2688`, an accepted portrait size for Apple's 6.5-inch iPhone slot when 6.9-inch screenshots are not provided.

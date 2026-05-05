@@ -128,6 +128,30 @@ check_privacy_manifests() {
   else
     fail "Privacy manifest lint failed."
   fi
+
+  local app_privacy
+  app_privacy="$(plutil -p Tanjjet/PrivacyInfo.xcprivacy 2>/dev/null || true)"
+  local required_data_types=(
+    "NSPrivacyCollectedDataTypeUserID"
+    "NSPrivacyCollectedDataTypeName"
+    "NSPrivacyCollectedDataTypeOtherUserContent"
+    "NSPrivacyCollectedDataTypeDeviceID"
+  )
+
+  local data_type
+  for data_type in "${required_data_types[@]}"; do
+    if [[ "$app_privacy" == *"$data_type"* ]]; then
+      ok "App privacy manifest declares $data_type."
+    else
+      fail "App privacy manifest is missing $data_type."
+    fi
+  done
+
+  if [[ "$app_privacy" == *"NSPrivacyCollectedDataTypePurposeAppFunctionality"* ]]; then
+    ok "App privacy manifest declares app functionality as the data collection purpose."
+  else
+    fail "App privacy manifest should declare app functionality as the data collection purpose."
+  fi
 }
 
 check_archive() {

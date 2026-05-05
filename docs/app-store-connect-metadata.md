@@ -64,12 +64,14 @@ No demo account is available because the app uses Sign in with Apple.
 
 Data linked to the user:
 - User ID: Sign in with Apple and Supabase Auth user identifier.
-- User Content: messages sent to the paired partner.
-- Other User Content: nickname entered by the user.
-- Device ID or other identifiers: push notification device token, used only for message notifications.
+- Name: nickname entered by the user.
+- Other User Content: messages sent to the paired partner.
+- Device ID: push notification device token, used only for message notifications.
 
 Purposes:
 - App Functionality: authentication, pairing, messaging, widget display, push notifications.
+
+The app privacy manifest mirrors this mapping with `UserID`, `Name`, `OtherUserContent`, and `DeviceID`, all linked to the user, not used for tracking, and used only for app functionality.
 
 Tracking:
 - No tracking.
