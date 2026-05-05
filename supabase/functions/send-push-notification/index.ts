@@ -119,8 +119,9 @@ serve(async (req) => {
     const results = await Promise.all(
       tokens.map((tokenRecord) => sendPushNotification(tokenRecord.token, senderName, body, jwt))
     )
+    const sent = results.filter((result) => result.success).length
 
-    return json({ success: true, results })
+    return json({ success: true, sent, failed: results.length - sent })
   } catch (error) {
     console.error("Unhandled error:", error)
     return json({ error: error instanceof Error ? error.message : String(error) }, 500)
@@ -180,7 +181,7 @@ async function sendPushNotification(
   senderName: string,
   content: string,
   jwt: string,
-): Promise<{ token: string; success: boolean; error?: string }> {
+): Promise<{ success: boolean }> {
   const response = await fetch(`https://${APNS_HOST}/3/device/${deviceToken}`, {
     method: "POST",
     headers: {
@@ -203,12 +204,12 @@ async function sendPushNotification(
   })
 
   if (response.ok) {
-    return { token: deviceToken, success: true }
+    return { success: true }
   }
 
   const error = await response.text()
-  console.error(`APNs error for ${deviceToken}:`, error)
-  return { token: deviceToken, success: false, error }
+  console.error("APNs delivery failed:", error)
+  return { success: false }
 }
 
 function base64UrlEncode(value: string | ArrayBuffer): string {

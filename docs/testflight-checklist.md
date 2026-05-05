@@ -13,9 +13,10 @@ Last checked: 2026-05-05
 - Push entitlement is `development` for Debug and `production` for Release.
 - App no longer implements remote-notification background fetch without declaring a matching background mode.
 - Supabase Edge Functions are deployed:
-  - `send-push-notification` v3
+  - `send-push-notification` v4
   - `delete-account` v2
 - Supabase Function secrets are present for APNs, Supabase keys, and `BUNDLE_ID`.
+- Push Edge Function responses and logs do not expose stored APNs device tokens.
 - `scripts/verify-release.sh` passes using repo-local `build/DerivedData`.
 - `scripts/archive-testflight.sh` creates `build/Tanjjet.xcarchive` using repo-local `build/ArchiveDerivedData`.
 - Release/TestFlight builds do not emit app logs directly; app logging is routed through DEBUG-only `AppLogger`, with message bodies, device tokens, pairing codes, and nicknames removed from log messages.
