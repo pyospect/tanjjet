@@ -38,12 +38,16 @@ ensure_supabase_strict_state() {
   echo
   echo "==> Checking Supabase strict remote state"
   if REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh; then
-    return
+    return 0
   fi
 
   if [[ -n "${SUPABASE_DB_PASSWORD:-}" ]]; then
-    run_step scripts/apply-supabase-db.sh
-    return
+    if ! run_step scripts/apply-supabase-db.sh; then
+      return 1
+    fi
+
+    REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh
+    return $?
   fi
 
   cat >&2 <<EOF
@@ -57,7 +61,7 @@ Then rerun this script, or provide the DB password:
 
 Project ref: $PROJECT_REF
 EOF
-  exit 1
+  return 1
 }
 
 ensure_app_store_connect_ready() {
@@ -71,19 +75,19 @@ ensure_app_store_connect_ready() {
 App Store Connect API key environment is incomplete.
 Set APP_STORE_CONNECT_API_KEY_PATH, APP_STORE_CONNECT_API_KEY_ID, and APP_STORE_CONNECT_ISSUER_ID together.
 EOF
-      exit 1
+      return 1
     fi
 
     if [[ ! -f "$key_path" ]]; then
       echo "App Store Connect API key file not found: $key_path" >&2
-      exit 1
+      return 1
     fi
 
-    return
+    return 0
   fi
 
   if [[ "${ASSUME_XCODE_ACCOUNT_READY:-0}" == "1" ]]; then
-    return
+    return 0
   fi
 
   if [[ -f build/testflight-upload.log ]] && grep -Eq "App Store Connect access|Failed to Use Accounts|Failed to find an account" build/testflight-upload.log; then
@@ -92,14 +96,29 @@ The latest TestFlight upload failed because Xcode had no App Store Connect accou
 Set the App Store Connect API key values in .env.release, or sign in to Xcode with the right team and rerun with:
   ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh
 EOF
-    exit 1
+    return 1
   fi
+
+  return 0
 }
 
 load_tanjjet_release_env
 require_clean_worktree
-ensure_app_store_connect_ready
-ensure_supabase_strict_state
+
+preflight_blockers=0
+ensure_supabase_strict_state || preflight_blockers=$((preflight_blockers + 1))
+ensure_app_store_connect_ready || preflight_blockers=$((preflight_blockers + 1))
+
+if [[ "$preflight_blockers" -ne 0 ]]; then
+  cat >&2 <<EOF
+
+Final TestFlight pipeline stopped before long-running build/upload steps.
+Resolve the preflight blocker(s) above, then rerun:
+  scripts/finalize-testflight-release.sh
+EOF
+  exit 1
+fi
+
 run_step scripts/verify-release.sh
 run_step scripts/archive-testflight.sh
 run_step scripts/upload-testflight.sh
