@@ -46,6 +46,16 @@ Supabase 원격 DB에 `disconnect_couple` RPC가 아직 없어 strict gate가 �
 SUPABASE_DB_PASSWORD=... scripts/apply-supabase-db.sh
 ```
 
+SQL editor에서 수동으로 실행했다면, 같은 SQL editor에서 아래 확인 쿼리를 실행해 `disconnect_couple` 행이 나오는지 먼저 보면 됩니다.
+
+```sql
+select proname, pg_get_function_arguments(oid) as arguments
+from pg_proc
+where pronamespace = 'public'::regnamespace
+and proname in ('join_couple', 'disconnect_couple')
+order by proname;
+```
+
 ## 권장 진행 순서
 
 1. `.env.release.example`을 `.env.release`로 복사합니다.
@@ -106,6 +116,8 @@ Supabase SQL editor에서 migration을 직접 실행했다면, 최종 파이프�
 ```sh
 REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh
 ```
+
+이 명령에서 `disconnect_couple RPC exists and responded`가 보이면 Supabase strict blocker가 풀린 상태입니다.
 
 ## 성공 후 할 일
 

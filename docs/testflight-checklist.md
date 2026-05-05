@@ -148,10 +148,20 @@ For an existing Supabase project where only the hardening changes are missing, r
 supabase/migrations/20260505041000_pairing_push_account_hardening.sql
 ```
 
+If applying the migration manually in the SQL editor, confirm the required RPCs exist with:
+
+```sql
+select proname, pg_get_function_arguments(oid) as arguments
+from pg_proc
+where pronamespace = 'public'::regnamespace
+and proname in ('join_couple', 'disconnect_couple')
+order by proname;
+```
+
 After applying SQL manually or through the CLI, verify the remote project:
 
 ```sh
-scripts/verify-supabase-remote.sh
+REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh
 ```
 
 Deploy or redeploy the Edge Functions:
