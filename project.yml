@@ -11,6 +11,7 @@ settings:
     CURRENT_PROJECT_VERSION: "6"
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "1"
+    DEVELOPMENT_TEAM: 4Q2Q7M7G5X
 
 packages:
   Supabase:
