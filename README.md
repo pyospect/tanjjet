@@ -70,6 +70,7 @@ open Tanjjet.xcodeproj
 ## 배포 준비
 
 TestFlight 업로드 전 체크리스트는 [`docs/testflight-checklist.md`](docs/testflight-checklist.md)를 확인하세요.
+App Store Connect 입력 초안은 [`docs/app-store-connect-metadata.md`](docs/app-store-connect-metadata.md)에 정리되어 있습니다.
 
 로컬 검증 명령:
 

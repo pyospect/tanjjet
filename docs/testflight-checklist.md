@@ -127,11 +127,13 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
 ## App Store Connect
 
 - Create the app record with bundle id `com.pyospect.tanjjet`.
+- Use `docs/app-store-connect-metadata.md` as the first draft for app information, description, keywords, review notes, and privacy-label mapping.
 - Confirm privacy labels match the app behavior:
   - Account/user identifier through Sign in with Apple and Supabase Auth.
   - User-provided nickname.
   - User-generated messages.
   - Device token for push notifications.
+- Confirm the hosted support and privacy-policy URLs before submission. GitHub Pages is already configured from `master` branch `/docs`, so merge this PR before final App Store submission to publish the updated privacy policy.
 - Upload screenshots from `screenshots/` or capture updated ones after UI review.
 - Add a tester note explaining that the app requires two accounts or two devices to verify pairing.
 
