@@ -16,6 +16,39 @@ AUTH_KEY_PATH="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
 AUTH_KEY_ID="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
 AUTH_ISSUER_ID="${APP_STORE_CONNECT_ISSUER_ID:-${ASC_ISSUER_ID:-}}"
 
+is_placeholder_asc_value() {
+  local value="$1"
+
+  case "$value" in
+    "" | "XXXXXX" | "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" | "/absolute/path/to/AuthKey_XXXXXX.p8")
+      return 0
+      ;;
+  esac
+
+  [[ "$value" == *"AuthKey_XXXXXX.p8"* || "$value" == "/absolute/path/"* ]]
+}
+
+RAW_AUTH_KEY_PATH="$AUTH_KEY_PATH"
+RAW_AUTH_KEY_ID="$AUTH_KEY_ID"
+RAW_AUTH_ISSUER_ID="$AUTH_ISSUER_ID"
+
+if is_placeholder_asc_value "$AUTH_KEY_PATH"; then
+  AUTH_KEY_PATH=""
+fi
+
+if is_placeholder_asc_value "$AUTH_KEY_ID"; then
+  AUTH_KEY_ID=""
+fi
+
+if is_placeholder_asc_value "$AUTH_ISSUER_ID"; then
+  AUTH_ISSUER_ID=""
+fi
+
+if [[ -n "$RAW_AUTH_KEY_PATH$RAW_AUTH_KEY_ID$RAW_AUTH_ISSUER_ID" &&
+      -z "$AUTH_KEY_PATH$AUTH_KEY_ID$AUTH_ISSUER_ID" ]]; then
+  echo "App Store Connect API key values still contain example placeholders; upload will rely on the signed-in Xcode account." >&2
+fi
+
 if [[ ! -d "$ARCHIVE_PATH" ]]; then
   echo "Archive not found at $ARCHIVE_PATH. Run scripts/archive-testflight.sh first." >&2
   exit 1

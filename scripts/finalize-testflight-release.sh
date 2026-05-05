@@ -24,6 +24,18 @@ remove_repo_build_cache() {
   fi
 }
 
+is_placeholder_asc_value() {
+  local value="$1"
+
+  case "$value" in
+    "" | "XXXXXX" | "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" | "/absolute/path/to/AuthKey_XXXXXX.p8")
+      return 0
+      ;;
+  esac
+
+  [[ "$value" == *"AuthKey_XXXXXX.p8"* || "$value" == "/absolute/path/"* ]]
+}
+
 ensure_disk_space() {
   local free_space_mb
   free_space_mb="$(df -Pm "$ROOT_DIR" | awk 'NR == 2 {print $4}')"
@@ -98,6 +110,26 @@ ensure_app_store_connect_ready() {
   local key_path="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
   local key_id="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
   local issuer_id="${APP_STORE_CONNECT_ISSUER_ID:-${ASC_ISSUER_ID:-}}"
+  local raw_key_path="$key_path"
+  local raw_key_id="$key_id"
+  local raw_issuer_id="$issuer_id"
+
+  if is_placeholder_asc_value "$key_path"; then
+    key_path=""
+  fi
+
+  if is_placeholder_asc_value "$key_id"; then
+    key_id=""
+  fi
+
+  if is_placeholder_asc_value "$issuer_id"; then
+    issuer_id=""
+  fi
+
+  if [[ -n "$raw_key_path$raw_key_id$raw_issuer_id" &&
+        -z "$key_path$key_id$issuer_id" ]]; then
+    echo "App Store Connect API key values still contain example placeholders; treating them as unset." >&2
+  fi
 
   if [[ -n "$key_path" || -n "$key_id" || -n "$issuer_id" ]]; then
     if [[ -z "$key_path" || -z "$key_id" || -z "$issuer_id" ]]; then
