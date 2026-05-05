@@ -86,6 +86,12 @@ scripts/archive-testflight.sh
 scripts/upload-testflight.sh
 ```
 
+Supabase DB 비밀번호와 App Store Connect 권한이 모두 준비된 뒤에는 전체 마무리 흐름을 한 번에 실행할 수 있습니다.
+
+```sh
+SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
+```
+
 최종 배포 직전에는 현재 아카이브, App Store Connect 인증, Supabase strict gate, 공개 문서 URL을 한 번에 확인합니다.
 
 ```sh

@@ -75,6 +75,14 @@ scripts/release-readiness-audit.sh
 
 This script checks the current archive, App Store Connect authentication readiness, strict Supabase remote state, public support/privacy URLs, and PR state. It exits non-zero while an external blocker remains.
 
+Once Supabase DB access and App Store Connect access are ready, run the full final pipeline:
+
+```sh
+SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
+```
+
+The final pipeline checks or applies the strict Supabase migration, runs release verification, recreates the archive, uploads to TestFlight, and then reruns the release-readiness audit.
+
 ## Apple Developer Setup
 
 - Add the Apple Developer account in Xcode settings.
