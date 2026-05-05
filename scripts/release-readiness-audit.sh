@@ -83,6 +83,30 @@ check_required_files() {
   done
 }
 
+check_release_workflow() {
+  local workflow=".github/workflows/release-verify.yml"
+
+  if [[ ! -f "$workflow" ]]; then
+    fail "$workflow is missing."
+    return
+  fi
+
+  if rg -q 'uses:[[:space:]]*actions/checkout@v4\b' "$workflow"; then
+    fail "Release verification workflow should not use actions/checkout@v4 because it runs on the deprecated Node 20 runtime."
+  elif rg -q 'uses:[[:space:]]*actions/checkout@v6(\.|$)' "$workflow"; then
+    ok "Release verification workflow uses actions/checkout v6 on the Node 24 runtime."
+  else
+    warn "Release verification workflow checkout action is not v6; confirm the action runtime before release."
+  fi
+
+  if rg -q 'timeout-minutes:[[:space:]]*45' "$workflow" &&
+     rg -q 'timeout-minutes:[[:space:]]*30' "$workflow"; then
+    ok "Release verification workflow has job and release-step timeouts."
+  else
+    fail "Release verification workflow should keep both job-level and release-step timeouts."
+  fi
+}
+
 check_device_family() {
   if grep -q 'TARGETED_DEVICE_FAMILY: "1"' project.yml; then
     ok "project.yml targets iPhone only."
@@ -369,6 +393,7 @@ EOF
 
 check_clean_worktree
 check_required_files
+check_release_workflow
 check_device_family
 check_versions
 check_entitlements
