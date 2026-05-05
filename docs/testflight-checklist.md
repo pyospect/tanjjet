@@ -4,7 +4,7 @@ Last checked: 2026-05-05
 
 ## Verified Locally
 
-- Unit tests pass: 6 tests, 0 failures.
+- Unit tests pass: 8 tests, 0 failures.
 - Debug simulator build passes.
 - Release simulator build passes.
 - Release iPhoneOS build passes with code signing disabled.
@@ -13,15 +13,19 @@ Last checked: 2026-05-05
 - Push entitlement is `development` for Debug and `production` for Release.
 - App no longer implements remote-notification background fetch without declaring a matching background mode.
 - Supabase Edge Functions are deployed:
-  - `send-push-notification` v2
-  - `delete-account` v1
+  - `send-push-notification` v3
+  - `delete-account` v2
 - Supabase Function secrets are present for APNs, Supabase keys, and `BUNDLE_ID`.
+- `scripts/verify-release.sh` passes using repo-local `build/DerivedData`.
+- `scripts/archive-testflight.sh` creates `build/Tanjjet.xcarchive` using repo-local `build/ArchiveDerivedData`.
 
 ## Commands
 
 ```sh
 scripts/verify-release.sh
 ```
+
+The verification script clears and uses `build/DerivedData` by default so Xcode's global DerivedData cache does not corrupt or contend with package checkouts. Override with `DERIVED_DATA_PATH=...` if needed.
 
 If the machine has a specific simulator you want to use:
 
@@ -34,6 +38,8 @@ Archive command after Apple account/provisioning is ready:
 ```sh
 scripts/archive-testflight.sh
 ```
+
+The archive script clears the default `build/Tanjjet.xcarchive` and `build/ArchiveDerivedData` before rebuilding so repeated release attempts stay deterministic.
 
 Upload the archive to App Store Connect internal TestFlight:
 
@@ -119,7 +125,7 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
 Archive now succeeds locally at `build/Tanjjet.xcarchive`, but App Store Connect upload is blocked by account access. The latest upload attempt failed with:
 
 ```text
-Failed to find an account with App Store Connect access for team 4Q2Q7M7G5X
+App Store Connect access for “4Q2Q7M7G5X” is required.
 ```
 
 Sign in to Xcode with an Apple account that has App Store Connect access for team `4Q2Q7M7G5X`, or rerun `scripts/upload-testflight.sh` with the App Store Connect API key environment variables shown above.

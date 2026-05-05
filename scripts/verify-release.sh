@@ -4,6 +4,14 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+DERIVED_DATA_PATH="${DERIVED_DATA_PATH:-$ROOT_DIR/build/DerivedData}"
+
+if [[ "$DERIVED_DATA_PATH" == "$ROOT_DIR"/build/* ]]; then
+  rm -rf "$DERIVED_DATA_PATH"
+fi
+
+mkdir -p "$DERIVED_DATA_PATH"
+
 xcodegen generate
 
 if [[ -z "${SIMULATOR_DESTINATION:-}" ]]; then
@@ -43,12 +51,14 @@ fi
 xcodebuild test \
   -project Tanjjet.xcodeproj \
   -scheme Tanjjet \
+  -derivedDataPath "$DERIVED_DATA_PATH" \
   -destination "$SIMULATOR_DESTINATION" \
   -configuration Debug
 
 xcodebuild \
   -project Tanjjet.xcodeproj \
   -scheme Tanjjet \
+  -derivedDataPath "$DERIVED_DATA_PATH" \
   -destination 'generic/platform=iOS Simulator' \
   -configuration Release \
   build
@@ -56,6 +66,7 @@ xcodebuild \
 xcodebuild \
   -project Tanjjet.xcodeproj \
   -scheme Tanjjet \
+  -derivedDataPath "$DERIVED_DATA_PATH" \
   -configuration Release \
   -destination 'generic/platform=iOS' \
   CODE_SIGNING_ALLOWED=NO \
