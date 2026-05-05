@@ -23,6 +23,12 @@ Last checked: 2026-05-05
 scripts/verify-release.sh
 ```
 
+If the machine has a specific simulator you want to use:
+
+```sh
+SIMULATOR_DESTINATION='platform=iOS Simulator,id=...' scripts/verify-release.sh
+```
+
 Archive command after Apple account/provisioning is ready:
 
 ```sh

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -75,7 +75,7 @@
 /* Begin PBXFileReference section */
 		028862BF76E9F3AD87467824 /* WidgetMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMessage.swift; sourceTree = "<group>"; };
 		0390FAA3F8C2B89007CFC012 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
-		103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TanjjetWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TanjjetWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		139E48E9E95FD8EA0F0C0802 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		15FB55A3766301004C377EBD /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		21077D2B082CF86DE83A7242 /* CoupleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTests.swift; sourceTree = "<group>"; };
@@ -87,21 +87,21 @@
 		4D5FF2B5C17194228956DE7A /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
 		63F1BFC5AC117E97AE82CDBA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		64E5BAE0180AC9177F4A0BE0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		7B3F687C2CC622AA6837572D /* Tanjjet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tanjjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B3F687C2CC622AA6837572D /* Tanjjet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Tanjjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EE257CB398BDFF5BD2EAE17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94E68814FF2A8D6E44E75537 /* PairingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewModel.swift; sourceTree = "<group>"; };
 		98050D1CB6168D6D1A8405E1 /* DeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceToken.swift; sourceTree = "<group>"; };
 		9D8AFD37DD7834868663858C /* RealtimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeService.swift; sourceTree = "<group>"; };
-		A5E6E1ADBBB7575F6E936D84 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A5E6E1ADBBB7575F6E936D84 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B2366BD248D5FE620D435236 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		B6B662AB211D94BCEB0F6A9F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B6B662AB211D94BCEB0F6A9F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		BB1C4232B08CD4C49BE22C39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C7D4730E06E7D2C2570A8992 /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
 		C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetTheme.swift; sourceTree = "<group>"; };
 		D5E6429BE0489435FEF48657 /* AppGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupManager.swift; sourceTree = "<group>"; };
 		D8396672D810C70CAC394857 /* Couple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
 		D85766025C59482DD2A235DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E148CE8C828F66E36BD6519C /* TanjjetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TanjjetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E148CE8C828F66E36BD6519C /* TanjjetTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TanjjetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E2B05A12244F38E87B0421 /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
 		F1662259CF0C7E9C445492EA /* TanjjetWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetWidget.swift; sourceTree = "<group>"; };
 		F3D76337F88357973311A6E8 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -354,6 +354,7 @@
 			packageReferences = (
 				B6581957CBB28E928436D14B /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
+			preferredProjectObjectVersion = 54;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -520,14 +521,9 @@
 				CODE_SIGN_ENTITLEMENTS = TanjjetWidget/TanjjetWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TanjjetWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.widget;
 				SDKROOT = iphoneos;
@@ -544,7 +540,6 @@
 				CODE_SIGN_ENTITLEMENTS = Tanjjet/Tanjjet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
 				INFOPLIST_KEY_CFBundleDisplayName = "딴젯";
@@ -625,7 +620,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -647,7 +641,6 @@
 				CODE_SIGN_ENTITLEMENTS = Tanjjet/Tanjjet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
 				INFOPLIST_KEY_CFBundleDisplayName = "딴젯";
@@ -670,7 +663,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -690,14 +682,9 @@
 				CODE_SIGN_ENTITLEMENTS = TanjjetWidget/TanjjetWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = TanjjetWidget/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.widget;
 				SDKROOT = iphoneos;
