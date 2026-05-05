@@ -35,6 +35,14 @@ have_command() {
   command -v "$1" >/dev/null 2>&1
 }
 
+release_build_settings() {
+  if [[ -z "${RELEASE_BUILD_SETTINGS:-}" ]]; then
+    RELEASE_BUILD_SETTINGS="$(xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -showBuildSettings -configuration Release 2>/dev/null || true)"
+  fi
+
+  printf '%s\n' "$RELEASE_BUILD_SETTINGS"
+}
+
 check_clean_worktree() {
   if ! git diff --quiet || ! git diff --cached --quiet || [[ -n "$(git ls-files --others --exclude-standard)" ]]; then
     block "Working tree has uncommitted changes. Commit, stash, or discard intentional local changes before a release upload."
@@ -76,7 +84,7 @@ check_device_family() {
 
   if [[ -f Tanjjet.xcodeproj/project.pbxproj ]]; then
     local build_settings
-    build_settings="$(xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -showBuildSettings -configuration Release 2>/dev/null || true)"
+    build_settings="$(release_build_settings)"
 
     if [[ "$build_settings" == *"PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet"* &&
           "$build_settings" == *"TARGETED_DEVICE_FAMILY = 1"* &&
@@ -87,6 +95,55 @@ check_device_family() {
     fi
   else
     warn "Tanjjet.xcodeproj is missing; run xcodegen generate before archiving."
+  fi
+}
+
+check_versions() {
+  local build_settings
+  build_settings="$(release_build_settings)"
+
+  if [[ "$build_settings" == *"MARKETING_VERSION = 1.0.0"* &&
+        "$build_settings" == *"CURRENT_PROJECT_VERSION = 6"* ]]; then
+    ok "Release build settings use version 1.0.0 build 6."
+  else
+    fail "Release build settings should use MARKETING_VERSION 1.0.0 and CURRENT_PROJECT_VERSION 6."
+  fi
+
+  if grep -q 'Version: `1.0.0`' docs/app-store-connect-metadata.md &&
+     grep -q 'Build: `6`' docs/app-store-connect-metadata.md; then
+    ok "App Store Connect metadata matches version 1.0.0 build 6."
+  else
+    fail "App Store Connect metadata version/build should match project.yml."
+  fi
+}
+
+check_entitlements() {
+  local app_entitlements
+  local widget_entitlements
+  local build_settings
+  app_entitlements="$(plutil -p Tanjjet/Tanjjet.entitlements 2>/dev/null || true)"
+  widget_entitlements="$(plutil -p TanjjetWidget/TanjjetWidgetExtension.entitlements 2>/dev/null || true)"
+  build_settings="$(release_build_settings)"
+
+  if [[ "$app_entitlements" == *"group.com.pyospect.tanjjet"* &&
+        "$widget_entitlements" == *"group.com.pyospect.tanjjet"* ]]; then
+    ok "App and widget source entitlements include the shared App Group."
+  else
+    fail "App and widget source entitlements must include group.com.pyospect.tanjjet."
+  fi
+
+  if [[ "$app_entitlements" == *"com.apple.developer.applesignin"* &&
+        "$app_entitlements" == *"Default"* ]]; then
+    ok "App source entitlements include Sign in with Apple."
+  else
+    fail "App source entitlements must include Sign in with Apple."
+  fi
+
+  if [[ "$app_entitlements" == *'$(APS_ENVIRONMENT)'* &&
+        "$build_settings" == *"APS_ENVIRONMENT = production"* ]]; then
+    ok "Release push entitlement resolves to production."
+  else
+    fail "Release push entitlement should resolve APS_ENVIRONMENT to production."
   fi
 }
 
@@ -120,6 +177,32 @@ check_screenshots() {
       warn "$screenshot is ${width:-unknown} x ${height:-unknown}; expected 1242 x 2688 for the current iPhone screenshot set."
     fi
   done
+}
+
+check_app_icon() {
+  local icon="Tanjjet/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png"
+  if [[ ! -s "$icon" ]]; then
+    fail "App Store icon is missing at $icon."
+    return
+  fi
+
+  if ! have_command sips; then
+    warn "sips is not available; skipping App Store icon dimension/alpha checks."
+    return
+  fi
+
+  local width
+  local height
+  local has_alpha
+  width="$(sips -g pixelWidth "$icon" 2>/dev/null | awk '/pixelWidth:/ {print $2}')"
+  height="$(sips -g pixelHeight "$icon" 2>/dev/null | awk '/pixelHeight:/ {print $2}')"
+  has_alpha="$(sips -g hasAlpha "$icon" 2>/dev/null | awk '/hasAlpha:/ {print $2}')"
+
+  if [[ "$width" == "1024" && "$height" == "1024" && "$has_alpha" == "no" ]]; then
+    ok "App Store icon is 1024 x 1024 with no alpha channel."
+  else
+    fail "App Store icon should be 1024 x 1024 with no alpha channel; found ${width:-unknown} x ${height:-unknown}, alpha ${has_alpha:-unknown}."
+  fi
 }
 
 check_privacy_manifests() {
@@ -265,7 +348,10 @@ EOF
 check_clean_worktree
 check_required_files
 check_device_family
+check_versions
+check_entitlements
 check_screenshots
+check_app_icon
 check_privacy_manifests
 check_archive
 check_app_store_connect_auth

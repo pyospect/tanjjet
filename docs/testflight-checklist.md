@@ -11,7 +11,9 @@ Last checked: 2026-05-05
 - App and widget `CFBundleVersion` now match.
 - App and widget include `PrivacyInfo.xcprivacy` for App Group `UserDefaults`; the app manifest also declares User ID, Name, Other User Content, and Device ID as linked app-functionality data, with no tracking.
 - Push entitlement is `development` for Debug and `production` for Release.
+- Source entitlements include App Groups for app/widget, Sign in with Apple for the app, and production APNs for Release.
 - App target is iPhone-only (`TARGETED_DEVICE_FAMILY = 1`) so the current iPhone screenshot set matches the submitted device family.
+- App Store icon is `1024 x 1024` with no alpha channel.
 - App no longer implements remote-notification background fetch without declaring a matching background mode.
 - Supabase Edge Functions are deployed:
   - `send-push-notification` v4
