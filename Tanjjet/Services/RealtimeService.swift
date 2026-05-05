@@ -1,0 +1,145 @@
+import Foundation
+import Supabase
+import Realtime
+
+/// Supabase Realtime 구독 관리
+@MainActor
+final class RealtimeService: ObservableObject {
+    static let shared = RealtimeService()
+    
+    private var channel: RealtimeChannelV2?
+    private var messageChangesTask: Task<Void, Never>?
+    private var isSubscribed = false
+    
+    /// 새 메시지 수신 콜백
+    var onNewMessage: ((Message) -> Void)?
+    
+    private init() {}
+    
+    // MARK: - Subscribe
+    
+    /// 메시지 테이블 실시간 구독
+    func subscribeToMessages(coupleId: UUID) async {
+        // 이미 구독 중이면 무시
+        guard !isSubscribed else {
+            AppLogger.info("Already subscribed")
+            return
+        }
+        
+        // 기존 구독 해제
+        await unsubscribe()
+        
+        let client = SupabaseService.shared.client
+        
+        // 채널 생성
+        let channel = client.realtimeV2.channel("messages-\(coupleId.uuidString)")
+        
+        // Postgres Changes 구독
+        let changes = channel.postgresChange(
+            AnyAction.self,
+            schema: "public",
+            table: "messages",
+            filter: .eq("couple_id", value: coupleId)
+        )
+        
+        // 구독 시작
+        do {
+            try await channel.subscribeWithError()
+        } catch {
+            await channel.unsubscribe()
+            AppLogger.error("Failed to subscribe to messages: \(error)")
+            return
+        }
+        
+        self.channel = channel
+        self.isSubscribed = true
+        
+        AppLogger.info("Subscribed to messages for couple: \(coupleId)")
+        
+        // 변경사항 리스닝
+        messageChangesTask = Task { [weak self] in
+            for await change in changes {
+                await self?.handleChange(change)
+            }
+        }
+    }
+    
+    /// 변경사항 처리
+    private func handleChange(_ action: AnyAction) async {
+        AppLogger.info("Realtime change received")
+        
+        switch action {
+        case .insert(let insertAction):
+            await handleInsert(insertAction)
+        default:
+            break
+        }
+    }
+    
+    /// INSERT 처리
+    private func handleInsert(_ action: InsertAction) async {
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            decoder.dateDecodingStrategy = .custom { decoder in
+                let container = try decoder.singleValueContainer()
+                let dateString = try container.decode(String.self)
+                
+                let formatter = ISO8601DateFormatter()
+                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                
+                if let date = formatter.date(from: dateString) {
+                    return date
+                }
+                
+                formatter.formatOptions = [.withInternetDateTime]
+                if let date = formatter.date(from: dateString) {
+                    return date
+                }
+                
+                throw DecodingError.dataCorruptedError(
+                    in: container,
+                    debugDescription: "Cannot decode date: \(dateString)"
+                )
+            }
+            
+            let message = try action.decodeRecord(as: Message.self, decoder: decoder)
+            
+            AppLogger.info("New message received via Realtime")
+            
+            // 위젯 업데이트 (파트너 메시지인 경우)
+            if let currentUserId = await SupabaseService.shared.currentUserId,
+               message.senderId != currentUserId {
+                let partnerNickname = try? await SupabaseService.shared.fetchPartnerNickname()
+                let widgetMessage = WidgetMessage(
+                    content: message.content,
+                    senderNickname: partnerNickname ?? "파트너",
+                    timestamp: message.createdAt ?? Date()
+                )
+                AppGroupManager.shared.saveWidgetMessage(widgetMessage)
+            }
+            
+            // 콜백 호출 (모든 메시지)
+            onNewMessage?(message)
+            
+        } catch {
+            AppLogger.error("Failed to decode message: \(error)")
+        }
+    }
+    
+    // MARK: - Unsubscribe
+    
+    /// 구독 해제
+    func unsubscribe() async {
+        messageChangesTask?.cancel()
+        messageChangesTask = nil
+        
+        if let channel = channel {
+            await channel.unsubscribe()
+            self.channel = nil
+            AppLogger.info("Unsubscribed from messages")
+        }
+        
+        self.isSubscribed = false
+    }
+}
