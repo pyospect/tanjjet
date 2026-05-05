@@ -8,6 +8,7 @@ final class RealtimeService: ObservableObject {
     static let shared = RealtimeService()
     
     private var channel: RealtimeChannelV2?
+    private var messageChangesTask: Task<Void, Never>?
     private var isSubscribed = false
     
     /// 새 메시지 수신 콜백
@@ -33,16 +34,22 @@ final class RealtimeService: ObservableObject {
         // 채널 생성
         let channel = client.realtimeV2.channel("messages-\(coupleId.uuidString)")
         
-        // Postgres Changes 구독 (새로운 filter 구문)
+        // Postgres Changes 구독
         let changes = channel.postgresChange(
             AnyAction.self,
             schema: "public",
             table: "messages",
-            filter: "couple_id=eq.\(coupleId.uuidString)"
+            filter: .eq("couple_id", value: coupleId)
         )
         
         // 구독 시작
-        await channel.subscribe()
+        do {
+            try await channel.subscribeWithError()
+        } catch {
+            await channel.unsubscribe()
+            print("[ERROR] Failed to subscribe to messages: \(error)")
+            return
+        }
         
         self.channel = channel
         self.isSubscribed = true
@@ -50,7 +57,7 @@ final class RealtimeService: ObservableObject {
         print("[INFO] Subscribed to messages for couple: \(coupleId)")
         
         // 변경사항 리스닝
-        Task { [weak self] in
+        messageChangesTask = Task { [weak self] in
             for await change in changes {
                 await self?.handleChange(change)
             }
@@ -124,11 +131,15 @@ final class RealtimeService: ObservableObject {
     
     /// 구독 해제
     func unsubscribe() async {
+        messageChangesTask?.cancel()
+        messageChangesTask = nil
+        
         if let channel = channel {
             await channel.unsubscribe()
             self.channel = nil
-            self.isSubscribed = false
             print("[INFO] Unsubscribed from messages")
         }
+        
+        self.isSubscribed = false
     }
 }
