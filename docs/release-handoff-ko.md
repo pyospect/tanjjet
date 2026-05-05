@@ -77,6 +77,7 @@ scripts/finalize-testflight-release.sh
 
 - Supabase strict remote gate 확인 또는 마이그레이션 적용
 - Release 빌드/테스트 검증
+- 재생성 가능한 DerivedData 캐시 정리
 - TestFlight용 archive 생성
 - App Store Connect/TestFlight 업로드
 - 최종 릴리즈 감사

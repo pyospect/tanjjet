@@ -15,6 +15,14 @@ run_step() {
   "$@"
 }
 
+remove_repo_build_cache() {
+  local path="$1"
+  if [[ -d "$path" && "$path" == "$ROOT_DIR"/build/* ]]; then
+    echo "Removing rebuildable cache: $path"
+    rm -rf "$path"
+  fi
+}
+
 require_clean_worktree() {
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     return
@@ -120,7 +128,9 @@ EOF
 fi
 
 run_step scripts/verify-release.sh
+remove_repo_build_cache "$ROOT_DIR/build/DerivedData"
 run_step scripts/archive-testflight.sh
+remove_repo_build_cache "$ROOT_DIR/build/ArchiveDerivedData"
 run_step scripts/upload-testflight.sh
 run_step scripts/release-readiness-audit.sh
 
