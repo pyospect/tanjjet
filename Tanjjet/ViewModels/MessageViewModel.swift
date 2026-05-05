@@ -31,6 +31,7 @@ final class MessageViewModel: ObservableObject {
             
             guard let couple = couple else {
                 print("[ERROR] No couple found")
+                errorMessage = "연결 정보를 불러오지 못했습니다. 다시 시도해주세요."
                 isLoading = false
                 return
             }
@@ -57,7 +58,7 @@ final class MessageViewModel: ObservableObject {
             
         } catch {
             print("[ERROR] Initialize failed: \(error)")
-            errorMessage = nil // 에러 메시지 숨김 (첫 메시지 없을 수 있음)
+            errorMessage = "메시지를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
         }
         
         isLoading = false

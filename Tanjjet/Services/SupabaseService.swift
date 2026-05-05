@@ -126,8 +126,16 @@ final class SupabaseService {
     
     /// 6자리 랜덤 코드 생성
     func generatePairingCode() -> String {
-        let characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
-        return String((0..<6).map { _ in characters.randomElement()! })
+        let characters = Array("ABCDEFGHJKLMNPQRSTUVWXYZ23456789")
+        var code = ""
+        code.reserveCapacity(6)
+        
+        for _ in 0..<6 {
+            let index = Int.random(in: characters.indices)
+            code.append(characters[index])
+        }
+        
+        return code
     }
     
     /// 커플 생성 (코드 발급)

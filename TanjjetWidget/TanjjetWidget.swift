@@ -40,7 +40,8 @@ struct TanjjetWidgetProvider: TimelineProvider {
         let entry = TanjjetWidgetEntry(date: Date(), message: message)
         
         // 15분 후 다음 업데이트 (앱에서 reloadTimelines 호출 시 즉시 업데이트됨)
-        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())!
+        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: Date())
+            ?? Date().addingTimeInterval(15 * 60)
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
         
         completion(timeline)
