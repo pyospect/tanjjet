@@ -30,6 +30,8 @@ APP_STORE_CONNECT_API_KEY_ID=XXXXXX
 APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
+Xcode 로그인으로 진행할 경우에는 위 API 키 placeholder를 그대로 둬도 됩니다. 릴리즈 스크립트는 예시값을 실제 키로 오인하지 않고, 아래의 `ASSUME_XCODE_ACCOUNT_READY=1` 옵션이 있을 때 Xcode 로그인 계정으로 업로드를 시도합니다.
+
 주의: `.env.release`는 git에 올리면 안 됩니다. 이미 `.gitignore`에 포함되어 있으니 그대로 사용하면 됩니다.
 
 ### 2. Supabase DB 마이그레이션
@@ -52,6 +54,8 @@ SUPABASE_DB_PASSWORD=... scripts/apply-supabase-db.sh
 cp .env.release.example .env.release
 ```
 
+현재 이 작업공간에는 `.env.release`가 이미 만들어져 있습니다. 새 Mac이나 새 clone에서만 위 복사 명령을 다시 실행하면 됩니다.
+
 2. `.env.release`에 실제 값을 채웁니다.
 
 ```sh
@@ -60,6 +64,8 @@ APP_STORE_CONNECT_API_KEY_PATH=/absolute/path/to/AuthKey_XXXXXX.p8
 APP_STORE_CONNECT_API_KEY_ID=XXXXXX
 APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
+
+Xcode 로그인 방식으로 App Store Connect를 해결한다면 `APP_STORE_CONNECT_*` 값은 예시값 그대로 두고, `SUPABASE_DB_PASSWORD`만 채워도 됩니다. Supabase SQL editor에서 migration을 직접 실행했다면 `SUPABASE_DB_PASSWORD`도 비워둘 수 있습니다.
 
 3. 자격 증명만 먼저 빠르게 확인합니다.
 
@@ -94,6 +100,12 @@ ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh
 ```
 
 이 옵션은 예전 업로드 실패 로그 때문에 preflight가 멈추는 것을 건너뜁니다. 실제 업로드 권한이 없으면 업로드 단계에서 다시 실패합니다.
+
+Supabase SQL editor에서 migration을 직접 실행했다면, 최종 파이프라인 전에 strict gate만 따로 확인할 수 있습니다.
+
+```sh
+REQUIRE_DISCONNECT_RPC=1 scripts/verify-supabase-remote.sh
+```
 
 ## 성공 후 할 일
 
