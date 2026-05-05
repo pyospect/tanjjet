@@ -119,7 +119,7 @@ struct TanjjetWidget: Widget {
         StaticConfiguration(kind: kind, provider: TanjjetWidgetProvider()) { entry in
             TanjjetWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Tanjjet")
+        .configurationDisplayName("딴젯")
         .description("파트너의 메시지를 잠금화면에서 확인하세요")
         .supportedFamilies([.accessoryRectangular])
     }

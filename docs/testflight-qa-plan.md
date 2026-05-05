@@ -9,7 +9,7 @@ Use this plan after a build is available in TestFlight. Tanjjet is a two-person 
 - Install the same TestFlight build on both devices.
 - Use two different Apple accounts for Sign in with Apple.
 - Allow push notifications on at least one device, and preferably both.
-- Add the `Tanjjet` accessory rectangular widget to the lock screen on at least one device.
+- Add the `딴젯` accessory rectangular widget to the lock screen on at least one device.
 - Keep `docs/testflight-checklist.md` open for release gates and environment checks.
 
 ## Pass Criteria
