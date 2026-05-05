@@ -94,6 +94,7 @@ SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
 
 여러 값을 반복 입력하기 싫다면 `.env.release.example`을 `.env.release`로 복사한 뒤 실제 값을 채워도 됩니다. `.env.release`는 git에 올라가지 않도록 무시됩니다.
 릴리즈 관련 스크립트는 기본적으로 `.env.release`를 자동으로 읽고, 다른 파일을 쓰려면 `RELEASE_ENV_FILE=/path/to/env`를 지정하면 됩니다.
+API key 없이 Xcode 계정 로그인을 새로 고친 경우에는 `ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh`로 이전 실패 로그 기반의 빠른 차단을 건너뛸 수 있습니다.
 
 최종 배포 직전에는 현재 아카이브, App Store Connect 인증, Supabase strict gate, 공개 문서 URL을 한 번에 확인합니다.
 

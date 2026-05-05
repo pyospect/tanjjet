@@ -88,6 +88,7 @@ scripts/finalize-testflight-release.sh
 ```
 
 All release scripts automatically load `.env.release` when it exists. Set `RELEASE_ENV_FILE=/path/to/env` if you want to use a different ignored env file.
+If you fixed App Store Connect by signing in through Xcode instead of using an API key, run `ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh` to ignore the previous upload-failure log during preflight.
 
 The final pipeline checks or applies the strict Supabase migration, runs release verification, recreates the archive, uploads to TestFlight, and then reruns the release-readiness audit.
 

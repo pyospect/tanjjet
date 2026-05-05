@@ -35,6 +35,11 @@ if [[ -n "$AUTH_KEY_PATH" || -n "$AUTH_KEY_ID" || -n "$AUTH_ISSUER_ID" ]]; then
     exit 1
   fi
 
+  if [[ ! -f "$AUTH_KEY_PATH" ]]; then
+    echo "App Store Connect API key file not found: $AUTH_KEY_PATH" >&2
+    exit 1
+  fi
+
   XCODEBUILD_ARGS+=(
     -authenticationKeyPath "$AUTH_KEY_PATH"
     -authenticationKeyID "$AUTH_KEY_ID"

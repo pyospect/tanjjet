@@ -60,8 +60,45 @@ EOF
   exit 1
 }
 
+ensure_app_store_connect_ready() {
+  local key_path="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
+  local key_id="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
+  local issuer_id="${APP_STORE_CONNECT_ISSUER_ID:-${ASC_ISSUER_ID:-}}"
+
+  if [[ -n "$key_path" || -n "$key_id" || -n "$issuer_id" ]]; then
+    if [[ -z "$key_path" || -z "$key_id" || -z "$issuer_id" ]]; then
+      cat >&2 <<'EOF'
+App Store Connect API key environment is incomplete.
+Set APP_STORE_CONNECT_API_KEY_PATH, APP_STORE_CONNECT_API_KEY_ID, and APP_STORE_CONNECT_ISSUER_ID together.
+EOF
+      exit 1
+    fi
+
+    if [[ ! -f "$key_path" ]]; then
+      echo "App Store Connect API key file not found: $key_path" >&2
+      exit 1
+    fi
+
+    return
+  fi
+
+  if [[ "${ASSUME_XCODE_ACCOUNT_READY:-0}" == "1" ]]; then
+    return
+  fi
+
+  if [[ -f build/testflight-upload.log ]] && grep -Eq "App Store Connect access|Failed to Use Accounts|Failed to find an account" build/testflight-upload.log; then
+    cat >&2 <<'EOF'
+The latest TestFlight upload failed because Xcode had no App Store Connect account access.
+Set the App Store Connect API key values in .env.release, or sign in to Xcode with the right team and rerun with:
+  ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh
+EOF
+    exit 1
+  fi
+}
+
 load_tanjjet_release_env
 require_clean_worktree
+ensure_app_store_connect_ready
 ensure_supabase_strict_state
 run_step scripts/verify-release.sh
 run_step scripts/archive-testflight.sh
