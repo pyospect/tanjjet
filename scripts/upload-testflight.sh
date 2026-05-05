@@ -4,6 +4,10 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+# shellcheck source=scripts/load-release-env.sh
+source scripts/load-release-env.sh
+load_tanjjet_release_env
+
 ARCHIVE_PATH="${ARCHIVE_PATH:-build/Tanjjet.xcarchive}"
 EXPORT_PATH="${EXPORT_PATH:-build/testflight-upload}"
 EXPORT_OPTIONS="${EXPORT_OPTIONS:-exportOptions-testflight.plist}"

@@ -4,6 +4,10 @@ set -uo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+# shellcheck source=scripts/load-release-env.sh
+source scripts/load-release-env.sh
+load_tanjjet_release_env
+
 ARCHIVE_PATH="${ARCHIVE_PATH:-build/Tanjjet.xcarchive}"
 SUPPORT_URL="${SUPPORT_URL:-https://pyospect.github.io/tanjjet/support.html}"
 PRIVACY_URL="${PRIVACY_URL:-https://pyospect.github.io/tanjjet/privacy-policy.html}"
@@ -64,6 +68,7 @@ check_required_files() {
     "docs/testflight-qa-plan.md"
     "docs/privacy-policy.html"
     "docs/support.html"
+    "scripts/load-release-env.sh"
     "scripts/finalize-testflight-release.sh"
   )
 

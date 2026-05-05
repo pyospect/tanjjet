@@ -4,6 +4,10 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+# shellcheck source=scripts/load-release-env.sh
+source scripts/load-release-env.sh
+load_tanjjet_release_env
+
 if [[ -z "${SUPABASE_DB_PASSWORD:-}" ]]; then
   cat >&2 <<'EOF'
 Set SUPABASE_DB_PASSWORD before running this script.

@@ -87,6 +87,8 @@ Alternatively, copy `.env.release.example` to `.env.release`, fill in the real S
 scripts/finalize-testflight-release.sh
 ```
 
+All release scripts automatically load `.env.release` when it exists. Set `RELEASE_ENV_FILE=/path/to/env` if you want to use a different ignored env file.
+
 The final pipeline checks or applies the strict Supabase migration, runs release verification, recreates the archive, uploads to TestFlight, and then reruns the release-readiness audit.
 
 ## Apple Developer Setup
