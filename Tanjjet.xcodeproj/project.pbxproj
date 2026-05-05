@@ -1,0 +1,770 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03361339EFD1DC5CFCB2C56F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B6B662AB211D94BCEB0F6A9F /* PrivacyInfo.xcprivacy */; };
+		045F3CCC97FB6059850A7A94 /* NicknameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D4730E06E7D2C2570A8992 /* NicknameSettingView.swift */; };
+		10813B5A78D4AD7F69CE8628 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE257CB398BDFF5BD2EAE17 /* AppDelegate.swift */; };
+		13712A6F9B4A39A07D630118 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800B49F602A7FE73E7FCF51 /* PushNotificationService.swift */; };
+		171A16D1742181355BE2357F /* TanjjetTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */; };
+		2340B86CE41C4443A90F528C /* TanjjetWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1662259CF0C7E9C445492EA /* TanjjetWidget.swift */; };
+		2DA4B0C2615588B154EA16FF /* TanjjetWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		355B6F15CEA49454131DE822 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB55A3766301004C377EBD /* MessageViewModel.swift */; };
+		43327DD297AD77FCA35B2705 /* TanjjetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC3827D5DAB9358977CD4A /* TanjjetApp.swift */; };
+		4853F7BD3BA5254959E344C5 /* PairingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E68814FF2A8D6E44E75537 /* PairingViewModel.swift */; };
+		4B0A1F6C5559E891936E311B /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139E48E9E95FD8EA0F0C0802 /* String+Extensions.swift */; };
+		4B0E7A812585D286E2E88989 /* PairingCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E692B42F82D4ABB22F3E /* PairingCodeTests.swift */; };
+		57FD681F6827693B9B278EF1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A5E6E1ADBBB7575F6E936D84 /* PrivacyInfo.xcprivacy */; };
+		655F2E15EE409C8FF1933F9E /* WidgetMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028862BF76E9F3AD87467824 /* WidgetMessage.swift */; };
+		69CAA244FD9AB6AE809C919F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1C4232B08CD4C49BE22C39 /* ContentView.swift */; };
+		6E6FF8C1301B3F48DC25DB51 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52D0B23A25E0C64A4B2ABCF /* StringExtensionTests.swift */; };
+		7A3790E5AA4B1C055F2A5AA9 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2366BD248D5FE620D435236 /* SignInView.swift */; };
+		7A67C9AB349ED1985DD5BCDD /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D76337F88357973311A6E8 /* Profile.swift */; };
+		80E409BD72FA6D8BCD93D32B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E5BAE0180AC9177F4A0BE0 /* Message.swift */; };
+		87A85359D70F80B275C091BC /* Couple.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8396672D810C70CAC394857 /* Couple.swift */; };
+		8C9033FC6865ACCA0EFBA2DA /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48766ED33069FA6D54AFADED /* AuthViewModel.swift */; };
+		A629E6D022A49F966A622B2B /* DeviceToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98050D1CB6168D6D1A8405E1 /* DeviceToken.swift */; };
+		AD7C6F8535E15C715954951B /* CoupleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21077D2B082CF86DE83A7242 /* CoupleTests.swift */; };
+		B04E44186160999351FDDEC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85766025C59482DD2A235DB /* Assets.xcassets */; };
+		B378FFBE86D7AC0F40035333 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390FAA3F8C2B89007CFC012 /* SupabaseService.swift */; };
+		BB43CED86BA8D0D19669D90F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = FCB86E15B69A4162D5FCDFBD /* Supabase */; };
+		CBF2B5F55D28ED10FD2D7C67 /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5FF2B5C17194228956DE7A /* EncodingTests.swift */; };
+		DDDD442AB1B2C34AAFEECB0E /* RealtimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AFD37DD7834868663858C /* RealtimeService.swift */; };
+		DE16310E3D4C83CB217F112E /* AppGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E6429BE0489435FEF48657 /* AppGroupManager.swift */; };
+		E0B0ACD9D2F3D75870C152B6 /* PairingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E2B05A12244F38E87B0421 /* PairingView.swift */; };
+		E29EBD144F1AF84AC7BFCC3C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F1BFC5AC117E97AE82CDBA /* MainView.swift */; };
+		E39F1D3D40F716CEA149D065 /* TanjjetWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335BDC06956BC023131232B3 /* TanjjetWidgetBundle.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		632E65B3D3BE44ED8313CFE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD2E925711DA97E3C884D27B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 25E8D65FD49A10EF2F08D1E0;
+			remoteInfo = Tanjjet;
+		};
+		96E51DE9583FB44574A8D72A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD2E925711DA97E3C884D27B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CBD2F3CAC0A96A61A0B23AE;
+			remoteInfo = TanjjetWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		64C8545D22ABC5B5E9F63BEC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2DA4B0C2615588B154EA16FF /* TanjjetWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		028862BF76E9F3AD87467824 /* WidgetMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMessage.swift; sourceTree = "<group>"; };
+		0390FAA3F8C2B89007CFC012 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TanjjetWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		139E48E9E95FD8EA0F0C0802 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		15FB55A3766301004C377EBD /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
+		21077D2B082CF86DE83A7242 /* CoupleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupleTests.swift; sourceTree = "<group>"; };
+		2800B49F602A7FE73E7FCF51 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
+		2EA4E692B42F82D4ABB22F3E /* PairingCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingCodeTests.swift; sourceTree = "<group>"; };
+		335BDC06956BC023131232B3 /* TanjjetWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetWidgetBundle.swift; sourceTree = "<group>"; };
+		3BEC3827D5DAB9358977CD4A /* TanjjetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetApp.swift; sourceTree = "<group>"; };
+		48766ED33069FA6D54AFADED /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		4D5FF2B5C17194228956DE7A /* EncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
+		63F1BFC5AC117E97AE82CDBA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		64E5BAE0180AC9177F4A0BE0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		7B3F687C2CC622AA6837572D /* Tanjjet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tanjjet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EE257CB398BDFF5BD2EAE17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		94E68814FF2A8D6E44E75537 /* PairingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingViewModel.swift; sourceTree = "<group>"; };
+		98050D1CB6168D6D1A8405E1 /* DeviceToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceToken.swift; sourceTree = "<group>"; };
+		9D8AFD37DD7834868663858C /* RealtimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeService.swift; sourceTree = "<group>"; };
+		A5E6E1ADBBB7575F6E936D84 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B2366BD248D5FE620D435236 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		B6B662AB211D94BCEB0F6A9F /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		BB1C4232B08CD4C49BE22C39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C7D4730E06E7D2C2570A8992 /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
+		C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetTheme.swift; sourceTree = "<group>"; };
+		D5E6429BE0489435FEF48657 /* AppGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupManager.swift; sourceTree = "<group>"; };
+		D8396672D810C70CAC394857 /* Couple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Couple.swift; sourceTree = "<group>"; };
+		D85766025C59482DD2A235DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E148CE8C828F66E36BD6519C /* TanjjetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TanjjetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8E2B05A12244F38E87B0421 /* PairingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingView.swift; sourceTree = "<group>"; };
+		F1662259CF0C7E9C445492EA /* TanjjetWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanjjetWidget.swift; sourceTree = "<group>"; };
+		F3D76337F88357973311A6E8 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		F52D0B23A25E0C64A4B2ABCF /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A343F1355AA88D98378FBCF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB43CED86BA8D0D19669D90F /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01582A3809C73FC849D93481 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D5E6429BE0489435FEF48657 /* AppGroupManager.swift */,
+				2800B49F602A7FE73E7FCF51 /* PushNotificationService.swift */,
+				9D8AFD37DD7834868663858C /* RealtimeService.swift */,
+				0390FAA3F8C2B89007CFC012 /* SupabaseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		055EB2BECC50E207843A9932 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D8396672D810C70CAC394857 /* Couple.swift */,
+				98050D1CB6168D6D1A8405E1 /* DeviceToken.swift */,
+				64E5BAE0180AC9177F4A0BE0 /* Message.swift */,
+				F3D76337F88357973311A6E8 /* Profile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0D258E589C67F49B3DED0465 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B2366BD248D5FE620D435236 /* SignInView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		4BFCD53CC398312D7A47CCA6 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				C8CB57ABDFE70DBC07EC23E7 /* TanjjetTheme.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
+		5818C8C7171A1C94EFCAA6AB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				139E48E9E95FD8EA0F0C0802 /* String+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5B6A2FC42638B132A4332E71 /* Pairing */ = {
+			isa = PBXGroup;
+			children = (
+				E8E2B05A12244F38E87B0421 /* PairingView.swift */,
+			);
+			path = Pairing;
+			sourceTree = "<group>";
+		};
+		5F31182FD898F8EFAA43D555 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				48766ED33069FA6D54AFADED /* AuthViewModel.swift */,
+				15FB55A3766301004C377EBD /* MessageViewModel.swift */,
+				94E68814FF2A8D6E44E75537 /* PairingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		666A379EBA41701F19BD5BB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B3F687C2CC622AA6837572D /* Tanjjet.app */,
+				E148CE8C828F66E36BD6519C /* TanjjetTests.xctest */,
+				103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		990CC889BFDF86C2AE446E1D = {
+			isa = PBXGroup;
+			children = (
+				E867C3EAF24D55D97E36D0DB /* Tanjjet */,
+				BD12BF44639529D7A31B3D38 /* TanjjetTests */,
+				B0AF654DA8419FC36254A63C /* TanjjetWidget */,
+				666A379EBA41701F19BD5BB4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A0C8E621BB4FBF4C0DA7C8BB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0D258E589C67F49B3DED0465 /* Auth */,
+				E4C91F6E15451CA9908E9D1D /* Main */,
+				5B6A2FC42638B132A4332E71 /* Pairing */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B0AF654DA8419FC36254A63C /* TanjjetWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B6B662AB211D94BCEB0F6A9F /* PrivacyInfo.xcprivacy */,
+				F1662259CF0C7E9C445492EA /* TanjjetWidget.swift */,
+				335BDC06956BC023131232B3 /* TanjjetWidgetBundle.swift */,
+				028862BF76E9F3AD87467824 /* WidgetMessage.swift */,
+			);
+			path = TanjjetWidget;
+			sourceTree = "<group>";
+		};
+		BD12BF44639529D7A31B3D38 /* TanjjetTests */ = {
+			isa = PBXGroup;
+			children = (
+				21077D2B082CF86DE83A7242 /* CoupleTests.swift */,
+				4D5FF2B5C17194228956DE7A /* EncodingTests.swift */,
+				2EA4E692B42F82D4ABB22F3E /* PairingCodeTests.swift */,
+				F52D0B23A25E0C64A4B2ABCF /* StringExtensionTests.swift */,
+			);
+			path = TanjjetTests;
+			sourceTree = "<group>";
+		};
+		E4C91F6E15451CA9908E9D1D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				63F1BFC5AC117E97AE82CDBA /* MainView.swift */,
+				C7D4730E06E7D2C2570A8992 /* NicknameSettingView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		E867C3EAF24D55D97E36D0DB /* Tanjjet */ = {
+			isa = PBXGroup;
+			children = (
+				7EE257CB398BDFF5BD2EAE17 /* AppDelegate.swift */,
+				D85766025C59482DD2A235DB /* Assets.xcassets */,
+				BB1C4232B08CD4C49BE22C39 /* ContentView.swift */,
+				A5E6E1ADBBB7575F6E936D84 /* PrivacyInfo.xcprivacy */,
+				3BEC3827D5DAB9358977CD4A /* TanjjetApp.swift */,
+				5818C8C7171A1C94EFCAA6AB /* Extensions */,
+				055EB2BECC50E207843A9932 /* Models */,
+				01582A3809C73FC849D93481 /* Services */,
+				4BFCD53CC398312D7A47CCA6 /* Style */,
+				5F31182FD898F8EFAA43D555 /* ViewModels */,
+				A0C8E621BB4FBF4C0DA7C8BB /* Views */,
+			);
+			path = Tanjjet;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1CBD2F3CAC0A96A61A0B23AE /* TanjjetWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CB80964D6C80627E25EBF24 /* Build configuration list for PBXNativeTarget "TanjjetWidgetExtension" */;
+			buildPhases = (
+				3E6C16B19100DD924FBA673E /* Sources */,
+				216B982FF4C8C24C0424A31E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TanjjetWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TanjjetWidgetExtension;
+			productReference = 103D9F8941E7D11FC21E6965 /* TanjjetWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		25E8D65FD49A10EF2F08D1E0 /* Tanjjet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8541E7899B2572D5C26D7A09 /* Build configuration list for PBXNativeTarget "Tanjjet" */;
+			buildPhases = (
+				AB0018BF43BA018282DBE2E5 /* Sources */,
+				F507260E281343AEF0765913 /* Resources */,
+				1A343F1355AA88D98378FBCF /* Frameworks */,
+				64C8545D22ABC5B5E9F63BEC /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB76CA1FA4820B484AE84C80 /* PBXTargetDependency */,
+			);
+			name = Tanjjet;
+			packageProductDependencies = (
+				FCB86E15B69A4162D5FCDFBD /* Supabase */,
+			);
+			productName = Tanjjet;
+			productReference = 7B3F687C2CC622AA6837572D /* Tanjjet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8617E9BEC0D5ACC9E1BA109F /* TanjjetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 928F0A50B8F21002B4CBFC81 /* Build configuration list for PBXNativeTarget "TanjjetTests" */;
+			buildPhases = (
+				E812B1F14661E69D386D686F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEBC1B657E0E4A77EA555BD7 /* PBXTargetDependency */,
+			);
+			name = TanjjetTests;
+			packageProductDependencies = (
+			);
+			productName = TanjjetTests;
+			productReference = E148CE8C828F66E36BD6519C /* TanjjetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD2E925711DA97E3C884D27B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1CBD2F3CAC0A96A61A0B23AE = {
+						ProvisioningStyle = Automatic;
+					};
+					25E8D65FD49A10EF2F08D1E0 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = CACAD129D7201532E0CCA928 /* Build configuration list for PBXProject "Tanjjet" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 990CC889BFDF86C2AE446E1D;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B6581957CBB28E928436D14B /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				25E8D65FD49A10EF2F08D1E0 /* Tanjjet */,
+				8617E9BEC0D5ACC9E1BA109F /* TanjjetTests */,
+				1CBD2F3CAC0A96A61A0B23AE /* TanjjetWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		216B982FF4C8C24C0424A31E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03361339EFD1DC5CFCB2C56F /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F507260E281343AEF0765913 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B04E44186160999351FDDEC1 /* Assets.xcassets in Resources */,
+				57FD681F6827693B9B278EF1 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3E6C16B19100DD924FBA673E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2340B86CE41C4443A90F528C /* TanjjetWidget.swift in Sources */,
+				E39F1D3D40F716CEA149D065 /* TanjjetWidgetBundle.swift in Sources */,
+				655F2E15EE409C8FF1933F9E /* WidgetMessage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB0018BF43BA018282DBE2E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10813B5A78D4AD7F69CE8628 /* AppDelegate.swift in Sources */,
+				DE16310E3D4C83CB217F112E /* AppGroupManager.swift in Sources */,
+				8C9033FC6865ACCA0EFBA2DA /* AuthViewModel.swift in Sources */,
+				69CAA244FD9AB6AE809C919F /* ContentView.swift in Sources */,
+				87A85359D70F80B275C091BC /* Couple.swift in Sources */,
+				A629E6D022A49F966A622B2B /* DeviceToken.swift in Sources */,
+				E29EBD144F1AF84AC7BFCC3C /* MainView.swift in Sources */,
+				80E409BD72FA6D8BCD93D32B /* Message.swift in Sources */,
+				355B6F15CEA49454131DE822 /* MessageViewModel.swift in Sources */,
+				045F3CCC97FB6059850A7A94 /* NicknameSettingView.swift in Sources */,
+				E0B0ACD9D2F3D75870C152B6 /* PairingView.swift in Sources */,
+				4853F7BD3BA5254959E344C5 /* PairingViewModel.swift in Sources */,
+				7A67C9AB349ED1985DD5BCDD /* Profile.swift in Sources */,
+				13712A6F9B4A39A07D630118 /* PushNotificationService.swift in Sources */,
+				DDDD442AB1B2C34AAFEECB0E /* RealtimeService.swift in Sources */,
+				7A3790E5AA4B1C055F2A5AA9 /* SignInView.swift in Sources */,
+				4B0A1F6C5559E891936E311B /* String+Extensions.swift in Sources */,
+				B378FFBE86D7AC0F40035333 /* SupabaseService.swift in Sources */,
+				43327DD297AD77FCA35B2705 /* TanjjetApp.swift in Sources */,
+				171A16D1742181355BE2357F /* TanjjetTheme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E812B1F14661E69D386D686F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD7C6F8535E15C715954951B /* CoupleTests.swift in Sources */,
+				CBF2B5F55D28ED10FD2D7C67 /* EncodingTests.swift in Sources */,
+				4B0E7A812585D286E2E88989 /* PairingCodeTests.swift in Sources */,
+				6E6FF8C1301B3F48DC25DB51 /* StringExtensionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BB76CA1FA4820B484AE84C80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CBD2F3CAC0A96A61A0B23AE /* TanjjetWidgetExtension */;
+			targetProxy = 96E51DE9583FB44574A8D72A /* PBXContainerItemProxy */;
+		};
+		CEBC1B657E0E4A77EA555BD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 25E8D65FD49A10EF2F08D1E0 /* Tanjjet */;
+			targetProxy = 632E65B3D3BE44ED8313CFE2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		240C173F1AE582081721B74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 6;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		2B63CA6210C177CF7C5DDDB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TanjjetWidget/TanjjetWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TanjjetWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		46E5174B7027344A77F28538 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APS_ENVIRONMENT = development;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tanjjet/Tanjjet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_CFBundleDisplayName = "딴젯";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5ED59078DEE6EB1ACA9C2247 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		771146D46698663CF1FB8D1D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tanjjet.app/Tanjjet";
+			};
+			name = Debug;
+		};
+		AE02F9A15028D03EF38BB5C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APS_ENVIRONMENT = production;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tanjjet/Tanjjet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_CFBundleDisplayName = "딴젯";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B625F5CD1C18D4FF80457DBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tanjjet.app/Tanjjet";
+			};
+			name = Release;
+		};
+		FBDE06F696AF134F6E3ACAD1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TanjjetWidget/TanjjetWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 4Q2Q7M7G5X;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TanjjetWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pyospect.tanjjet.widget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1CB80964D6C80627E25EBF24 /* Build configuration list for PBXNativeTarget "TanjjetWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBDE06F696AF134F6E3ACAD1 /* Debug */,
+				2B63CA6210C177CF7C5DDDB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8541E7899B2572D5C26D7A09 /* Build configuration list for PBXNativeTarget "Tanjjet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E5174B7027344A77F28538 /* Debug */,
+				AE02F9A15028D03EF38BB5C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		928F0A50B8F21002B4CBFC81 /* Build configuration list for PBXNativeTarget "TanjjetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				771146D46698663CF1FB8D1D /* Debug */,
+				B625F5CD1C18D4FF80457DBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CACAD129D7201532E0CCA928 /* Build configuration list for PBXProject "Tanjjet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				240C173F1AE582081721B74F /* Debug */,
+				5ED59078DEE6EB1ACA9C2247 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B6581957CBB28E928436D14B /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FCB86E15B69A4162D5FCDFBD /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6581957CBB28E928436D14B /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AD2E925711DA97E3C884D27B /* Project object */;
+}
