@@ -140,6 +140,7 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
 
 - Create the app record with bundle id `com.pyospect.tanjjet`.
 - Use `docs/app-store-connect-metadata.md` as the first draft for app information, description, keywords, review notes, and privacy-label mapping.
+- Use `docs/testflight-qa-plan.md` for the two-device TestFlight smoke test before submitting for App Review.
 - Confirm privacy labels match the app behavior:
   - Account/user identifier through Sign in with Apple and Supabase Auth.
   - User-provided nickname.
