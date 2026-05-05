@@ -6,6 +6,7 @@ cd "$ROOT_DIR"
 
 PROJECT_REF="wxlfukoozmuwslppmkaf"
 MIGRATION_PATH="supabase/migrations/20260505041000_pairing_push_account_hardening.sql"
+MIN_FREE_SPACE_MB="${MIN_FREE_SPACE_MB:-4096}"
 # shellcheck source=scripts/load-release-env.sh
 source scripts/load-release-env.sh
 
@@ -21,6 +22,27 @@ remove_repo_build_cache() {
     echo "Removing rebuildable cache: $path"
     rm -rf "$path"
   fi
+}
+
+ensure_disk_space() {
+  local free_space_mb
+  free_space_mb="$(df -Pm "$ROOT_DIR" | awk 'NR == 2 {print $4}')"
+
+  if [[ -z "$free_space_mb" || ! "$free_space_mb" =~ ^[0-9]+$ ]]; then
+    echo "Could not determine available disk space." >&2
+    return 1
+  fi
+
+  if (( free_space_mb < MIN_FREE_SPACE_MB )); then
+    cat >&2 <<EOF
+Only ${free_space_mb}MB is available.
+Free at least ${MIN_FREE_SPACE_MB}MB before the final release pipeline, or set MIN_FREE_SPACE_MB to override intentionally.
+EOF
+    return 1
+  fi
+
+  echo "Disk space preflight passed: ${free_space_mb}MB available."
+  return 0
 }
 
 require_clean_worktree() {
@@ -114,6 +136,7 @@ load_tanjjet_release_env
 require_clean_worktree
 
 preflight_blockers=0
+ensure_disk_space || preflight_blockers=$((preflight_blockers + 1))
 ensure_supabase_strict_state || preflight_blockers=$((preflight_blockers + 1))
 ensure_app_store_connect_ready || preflight_blockers=$((preflight_blockers + 1))
 

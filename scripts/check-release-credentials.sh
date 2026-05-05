@@ -8,6 +8,7 @@ cd "$ROOT_DIR"
 source scripts/load-release-env.sh
 
 issues=0
+MIN_FREE_SPACE_MB="${MIN_FREE_SPACE_MB:-4096}"
 
 ok() {
   printf 'OK: %s\n' "$*"
@@ -21,6 +22,21 @@ block() {
   issues=$((issues + 1))
   printf 'BLOCKED: %s\n' "$*" >&2
 }
+
+available_space_mb() {
+  df -Pm "$ROOT_DIR" | awk 'NR == 2 {print $4}'
+}
+
+free_space_mb="$(available_space_mb)"
+if [[ -n "$free_space_mb" && "$free_space_mb" =~ ^[0-9]+$ ]]; then
+  if (( free_space_mb >= MIN_FREE_SPACE_MB )); then
+    ok "Disk space is sufficient: ${free_space_mb}MB available."
+  else
+    block "Only ${free_space_mb}MB is available. Free at least ${MIN_FREE_SPACE_MB}MB before the final release pipeline, or set MIN_FREE_SPACE_MB to override intentionally."
+  fi
+else
+  warn "Could not determine available disk space."
+fi
 
 if [[ -n "${RELEASE_ENV_FILE:-}" ]]; then
   if [[ -f "$RELEASE_ENV_FILE" ]]; then

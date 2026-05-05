@@ -100,6 +100,8 @@ SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
 
 If you pass credentials inline instead of using `.env.release`, pass the same values to both `scripts/check-release-credentials.sh` and `scripts/finalize-testflight-release.sh`.
 
+The credential preflight also checks local disk space. Keep at least 4096 MB free before the final pipeline, or set `MIN_FREE_SPACE_MB=...` if you intentionally want a different threshold.
+
 Alternatively, copy `.env.release.example` to `.env.release`, fill in the real Supabase and App Store Connect values, then run:
 
 ```sh

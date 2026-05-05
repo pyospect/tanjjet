@@ -67,6 +67,8 @@ APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 scripts/check-release-credentials.sh
 ```
 
+이 명령은 로컬 디스크 여유 공간도 함께 확인합니다. 최종 빌드 전에 기본 4096 MB 이상을 요구하며, 의도적으로 기준을 바꾸려면 `MIN_FREE_SPACE_MB=...`를 붙여 실행할 수 있습니다.
+
 4. 최종 파이프라인을 실행합니다.
 
 ```sh
