@@ -40,6 +40,18 @@ have_command() {
   command -v "$1" >/dev/null 2>&1
 }
 
+is_placeholder_asc_value() {
+  local value="$1"
+
+  case "$value" in
+    "" | "XXXXXX" | "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" | "/absolute/path/to/AuthKey_XXXXXX.p8")
+      return 0
+      ;;
+  esac
+
+  [[ "$value" == *"AuthKey_XXXXXX.p8"* || "$value" == "/absolute/path/"* ]]
+}
+
 release_build_settings() {
   if [[ -z "${RELEASE_BUILD_SETTINGS:-}" ]]; then
     RELEASE_BUILD_SETTINGS="$(xcodebuild -project Tanjjet.xcodeproj -scheme Tanjjet -showBuildSettings -configuration Release 2>/dev/null || true)"
@@ -318,6 +330,18 @@ check_app_store_connect_auth() {
   local key_path="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
   local key_id="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
   local issuer_id="${APP_STORE_CONNECT_ISSUER_ID:-${ASC_ISSUER_ID:-}}"
+
+  if is_placeholder_asc_value "$key_path"; then
+    key_path=""
+  fi
+
+  if is_placeholder_asc_value "$key_id"; then
+    key_id=""
+  fi
+
+  if is_placeholder_asc_value "$issuer_id"; then
+    issuer_id=""
+  fi
 
   if [[ -n "$key_path" || -n "$key_id" || -n "$issuer_id" ]]; then
     if [[ -n "$key_path" && -n "$key_id" && -n "$issuer_id" && -f "$key_path" ]]; then
