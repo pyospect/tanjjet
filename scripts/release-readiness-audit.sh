@@ -72,6 +72,7 @@ check_required_files() {
     "docs/testflight-qa-plan.md"
     "docs/privacy-policy.html"
     "docs/support.html"
+    "scripts/check-release-credentials.sh"
     "scripts/load-release-env.sh"
     "scripts/finalize-testflight-release.sh"
   )

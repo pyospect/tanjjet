@@ -31,6 +31,7 @@ Last checked: 2026-05-05
 | Supabase 원격 DB strict gate | `scripts/verify-supabase-remote.sh`가 `disconnect_couple` RPC 404를 보고 | 미완료 |
 | TestFlight archive | `build/Tanjjet.xcarchive` 존재, bundle id와 signing identity 감사 통과 | 완료 |
 | TestFlight upload | `scripts/upload-testflight.sh`가 App Store Connect 접근 권한 부족으로 차단됨 | 미완료 |
+| 자격 증명 preflight | `scripts/check-release-credentials.sh`가 Supabase DB password와 App Store Connect API 키/Xcode 계정 경로를 긴 빌드 전에 확인 | 완료 |
 | 최종 파이프라인 | `scripts/finalize-testflight-release.sh`가 Supabase/App Store Connect preflight 블로커를 함께 표시 | 완료 |
 | 한국어 인수인계 | `docs/release-handoff-ko.md`에 남은 권한 입력, DB 마이그레이션, 최종 실행 순서, 성공 후 QA 절차 정리 | 완료 |
 | PR 상태 | PR #1은 draft이고 merge state는 clean. 최종 제출 전 master merge 필요 | 대기 |
@@ -75,6 +76,10 @@ scripts/release-readiness-audit.sh
 ## 다음 실행
 
 자격 증명이 준비되면 아래 명령을 실행합니다.
+
+```sh
+scripts/check-release-credentials.sh
+```
 
 ```sh
 scripts/finalize-testflight-release.sh

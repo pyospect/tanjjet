@@ -61,7 +61,13 @@ APP_STORE_CONNECT_API_KEY_ID=XXXXXX
 APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
-3. 최종 파이프라인을 실행합니다.
+3. 자격 증명만 먼저 빠르게 확인합니다.
+
+```sh
+scripts/check-release-credentials.sh
+```
+
+4. 최종 파이프라인을 실행합니다.
 
 ```sh
 scripts/finalize-testflight-release.sh
@@ -80,6 +86,7 @@ scripts/finalize-testflight-release.sh
 API 키 대신 Xcode 로그인으로 App Store Connect 접근을 해결했다면 아래처럼 실행합니다.
 
 ```sh
+ASSUME_XCODE_ACCOUNT_READY=1 scripts/check-release-credentials.sh
 ASSUME_XCODE_ACCOUNT_READY=1 scripts/finalize-testflight-release.sh
 ```
 

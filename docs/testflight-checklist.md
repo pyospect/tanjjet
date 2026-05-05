@@ -91,10 +91,16 @@ This script checks the current archive, App Store Connect authentication readine
 Once Supabase DB access and App Store Connect access are ready, run the full final pipeline:
 
 ```sh
+scripts/check-release-credentials.sh
+```
+
+```sh
 SUPABASE_DB_PASSWORD=... scripts/finalize-testflight-release.sh
 ```
 
-Alternatively, copy `.env.release.example` to `.env.release`, fill in the real Supabase and App Store Connect values, and run:
+If you pass credentials inline instead of using `.env.release`, pass the same values to both `scripts/check-release-credentials.sh` and `scripts/finalize-testflight-release.sh`.
+
+Alternatively, copy `.env.release.example` to `.env.release`, fill in the real Supabase and App Store Connect values, then run:
 
 ```sh
 scripts/finalize-testflight-release.sh
