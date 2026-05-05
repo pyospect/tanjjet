@@ -79,7 +79,7 @@ Tracking:
 
 ## Screenshot Checklist
 
-The app is configured as iPhone-only (`TARGETED_DEVICE_FAMILY = 1`). Use the existing iPhone screenshots as placeholders or recapture final App Store assets after TestFlight verification:
+The app is configured as iPhone-only (`TARGETED_DEVICE_FAMILY = 1`). Use the existing iPhone screenshots for TestFlight/App Store setup, and recapture the same slots if the final TestFlight build changes visually:
 - `screenshots/screenshot_1_lockscreen.png`
 - `screenshots/screenshot_2_pairing.png`
 - `screenshots/screenshot_3_message.png`
