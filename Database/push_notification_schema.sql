@@ -64,7 +64,7 @@ BEGIN
     
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- 4. 메시지 INSERT 시 트리거
 DROP TRIGGER IF EXISTS on_new_message ON public.messages;

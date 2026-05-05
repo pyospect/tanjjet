@@ -35,6 +35,7 @@ END $$;
 
 DROP POLICY IF EXISTS "Users can view own profile" ON public.profiles;
 DROP POLICY IF EXISTS "Users can view own and partner profiles" ON public.profiles;
+DROP POLICY IF EXISTS "Couple members can update couple" ON public.couples;
 
 CREATE POLICY "Users can view own and partner profiles"
 ON public.profiles FOR SELECT
@@ -103,7 +104,7 @@ BEGIN
 
     RETURN TRUE;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE OR REPLACE FUNCTION public.disconnect_couple(disconnecting_user_id UUID)
 RETURNS BOOLEAN AS $$
@@ -129,4 +130,4 @@ BEGIN
 
     RETURN TRUE;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;

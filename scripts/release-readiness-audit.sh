@@ -237,6 +237,20 @@ check_privacy_manifests() {
   fi
 }
 
+check_database_hardening() {
+  if rg -q 'CREATE POLICY "Couple members can update couple"' Database supabase/migrations -g '*.sql'; then
+    fail "Database SQL should not grant direct user UPDATE access to couples."
+  else
+    ok "Database SQL does not grant direct user UPDATE access to couples."
+  fi
+
+  if rg -q 'SECURITY DEFINER(?! SET search_path = public)' Database supabase/migrations -g '*.sql' -P; then
+    fail "SECURITY DEFINER functions should set search_path = public."
+  else
+    ok "SECURITY DEFINER functions set search_path = public."
+  fi
+}
+
 check_archive() {
   if [[ ! -d "$ARCHIVE_PATH" ]]; then
     block "Archive not found at $ARCHIVE_PATH. Run scripts/archive-testflight.sh after scripts/verify-release.sh."
@@ -353,6 +367,7 @@ check_entitlements
 check_screenshots
 check_app_icon
 check_privacy_manifests
+check_database_hardening
 check_archive
 check_app_store_connect_auth
 check_supabase_strict

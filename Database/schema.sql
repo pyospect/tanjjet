@@ -101,6 +101,7 @@ ON public.profiles FOR INSERT
 WITH CHECK (auth.uid() = id);
 
 -- couples 정책: 커플 멤버만 읽기 가능, 인증 사용자는 본인 커플 생성 가능
+-- 커플 참여/해제는 직접 UPDATE가 아니라 RPC 또는 Edge Function으로만 처리합니다.
 DROP POLICY IF EXISTS "Couple members can view their couple" ON public.couples;
 DROP POLICY IF EXISTS "Authenticated users can create couple" ON public.couples;
 DROP POLICY IF EXISTS "Couple members can update couple" ON public.couples;
@@ -112,10 +113,6 @@ USING (auth.uid() = user1_id OR auth.uid() = user2_id);
 CREATE POLICY "Authenticated users can create couple"
 ON public.couples FOR INSERT
 WITH CHECK (auth.uid() = user1_id);
-
-CREATE POLICY "Couple members can update couple"
-ON public.couples FOR UPDATE
-USING (auth.uid() = user1_id OR auth.uid() = user2_id);
 
 -- messages 정책: 커플 멤버만 메시지 읽기/쓰기 가능
 DROP POLICY IF EXISTS "Couple members can view messages" ON public.messages;
@@ -150,7 +147,7 @@ BEGIN
     VALUES (NEW.id, COALESCE(NEW.raw_user_meta_data->>'full_name', '사용자'));
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- 트리거 생성
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
@@ -172,7 +169,7 @@ BEGIN
     FROM public.couples c
     WHERE c.code = input_code;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- 커플 연결 함수 (user2 참여)
 CREATE OR REPLACE FUNCTION public.join_couple(input_code TEXT, joining_user_id UUID)
@@ -228,7 +225,7 @@ BEGIN
     
     RETURN TRUE;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- 커플 연결 해제 함수
 CREATE OR REPLACE FUNCTION public.disconnect_couple(disconnecting_user_id UUID)
@@ -255,7 +252,7 @@ BEGIN
 
     RETURN TRUE;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 -- Realtime 활성화 (Supabase 대시보드에서도 설정 필요)
 -- Database > Replication > 해당 테이블 활성화
