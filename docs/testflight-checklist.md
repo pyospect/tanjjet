@@ -35,6 +35,21 @@ Archive command after Apple account/provisioning is ready:
 scripts/archive-testflight.sh
 ```
 
+Upload the archive to App Store Connect internal TestFlight:
+
+```sh
+scripts/upload-testflight.sh
+```
+
+If Xcode is not signed in to an App Store Connect account for the team, upload with an App Store Connect API key:
+
+```sh
+APP_STORE_CONNECT_API_KEY_PATH=/path/to/AuthKey_XXXXXX.p8 \
+APP_STORE_CONNECT_API_KEY_ID=XXXXXX \
+APP_STORE_CONNECT_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx \
+scripts/upload-testflight.sh
+```
+
 ## Apple Developer Setup
 
 - Add the Apple Developer account in Xcode settings.
@@ -99,15 +114,14 @@ Remote DB note: `join_couple` exists, but `disconnect_couple` was not present in
 - Upload screenshots from `screenshots/` or capture updated ones after UI review.
 - Add a tester note explaining that the app requires two accounts or two devices to verify pairing.
 
-## Current Blocker
+## Current Blockers
 
-Archive currently fails because Xcode has no active Apple account/provisioning profile available to command line tools. The last archive attempt failed before compiling app code with:
+Archive now succeeds locally at `build/Tanjjet.xcarchive`, but App Store Connect upload is blocked by account access. The latest upload attempt failed with:
 
 ```text
-No Accounts: Add a new account in Accounts settings.
-Provisioning profile ... doesn't include signing certificate ...
+Failed to find an account with App Store Connect access for team 4Q2Q7M7G5X
 ```
 
-Once the Apple account and profiles are refreshed, the same codebase should be ready for archive/upload validation.
+Sign in to Xcode with an Apple account that has App Store Connect access for team `4Q2Q7M7G5X`, or rerun `scripts/upload-testflight.sh` with the App Store Connect API key environment variables shown above.
 
 Remote database schema application is also blocked until the Supabase database password is available to the CLI or the SQL is run manually in the Supabase SQL editor.

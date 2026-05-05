@@ -77,6 +77,15 @@ TestFlight 업로드 전 체크리스트는 [`docs/testflight-checklist.md`](doc
 scripts/verify-release.sh
 ```
 
+Archive와 TestFlight 업로드:
+
+```sh
+scripts/archive-testflight.sh
+scripts/upload-testflight.sh
+```
+
+Xcode에 App Store Connect 권한이 있는 계정이 없으면, App Store Connect API 키 환경변수와 함께 업로드할 수 있습니다. 자세한 값 이름은 체크리스트를 확인하세요.
+
 ## 라이선스
 
 MIT License

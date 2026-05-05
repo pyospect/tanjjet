@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+ARCHIVE_PATH="${ARCHIVE_PATH:-build/Tanjjet.xcarchive}"
+EXPORT_PATH="${EXPORT_PATH:-build/testflight-upload}"
+EXPORT_OPTIONS="${EXPORT_OPTIONS:-exportOptions-testflight.plist}"
+AUTH_KEY_PATH="${APP_STORE_CONNECT_API_KEY_PATH:-${ASC_KEY_PATH:-}}"
+AUTH_KEY_ID="${APP_STORE_CONNECT_API_KEY_ID:-${ASC_KEY_ID:-}}"
+AUTH_ISSUER_ID="${APP_STORE_CONNECT_ISSUER_ID:-${ASC_ISSUER_ID:-}}"
+
+if [[ ! -d "$ARCHIVE_PATH" ]]; then
+  echo "Archive not found at $ARCHIVE_PATH. Run scripts/archive-testflight.sh first." >&2
+  exit 1
+fi
+
+AUTH_ARGS=()
+if [[ -n "$AUTH_KEY_PATH" || -n "$AUTH_KEY_ID" || -n "$AUTH_ISSUER_ID" ]]; then
+  if [[ -z "$AUTH_KEY_PATH" || -z "$AUTH_KEY_ID" || -z "$AUTH_ISSUER_ID" ]]; then
+    echo "Set APP_STORE_CONNECT_API_KEY_PATH, APP_STORE_CONNECT_API_KEY_ID, and APP_STORE_CONNECT_ISSUER_ID together." >&2
+    exit 1
+  fi
+
+  AUTH_ARGS=(
+    -authenticationKeyPath "$AUTH_KEY_PATH"
+    -authenticationKeyID "$AUTH_KEY_ID"
+    -authenticationKeyIssuerID "$AUTH_ISSUER_ID"
+  )
+fi
+
+rm -rf "$EXPORT_PATH"
+
+xcodebuild \
+  -exportArchive \
+  -archivePath "$ARCHIVE_PATH" \
+  -exportPath "$EXPORT_PATH" \
+  -exportOptionsPlist "$EXPORT_OPTIONS" \
+  -allowProvisioningUpdates \
+  "${AUTH_ARGS[@]}"
