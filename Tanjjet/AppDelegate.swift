@@ -10,7 +10,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         // Push Notification delegate 설정
         UNUserNotificationCenter.current().delegate = PushNotificationService.shared
+        PushNotificationService.shared.clearBadge()
         return true
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        PushNotificationService.shared.clearBadge()
     }
     
     /// 디바이스 토큰 수신 성공
@@ -28,5 +33,4 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     ) {
         AppLogger.error("Failed to register for remote notifications: \(error.localizedDescription)")
     }
-    
 }

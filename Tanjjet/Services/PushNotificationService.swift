@@ -103,9 +103,19 @@ final class PushNotificationService: NSObject, ObservableObject {
     /// 푸시 알림 수신 처리
     func handleNotification(_ userInfo: [AnyHashable: Any]) {
         AppLogger.info("Received notification")
+        clearBadge()
         
         // 위젯 업데이트
         AppGroupManager.shared.reloadWidgetTimelines()
+    }
+
+    /// 앱을 열었거나 알림을 처리한 뒤 홈 화면 배지를 정리
+    func clearBadge() {
+        UNUserNotificationCenter.current().setBadgeCount(0) { error in
+            if let error {
+                AppLogger.error("Failed to clear notification badge: \(error.localizedDescription)")
+            }
+        }
     }
     
     // MARK: - Remove Token
