@@ -25,6 +25,7 @@ Last checked: 2026-05-05
 - Remote verification confirms `join_couple` exists for the pairing flow.
 - Database hardening removes direct user UPDATE access to `couples`; pairing changes go through RPC or the disconnect Edge Function.
 - `scripts/verify-release.sh` passes using repo-local `build/DerivedData`.
+- GitHub Actions `Release Verification` runs the same release verification on pull requests and release-branch pushes.
 - `scripts/archive-testflight.sh` creates `build/Tanjjet.xcarchive` using repo-local `build/ArchiveDerivedData`.
 - Release/TestFlight builds do not emit app logs directly; app logging is routed through DEBUG-only `AppLogger`, with message bodies, device tokens, pairing codes, and nicknames removed from log messages.
 

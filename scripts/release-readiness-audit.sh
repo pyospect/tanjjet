@@ -60,6 +60,7 @@ check_required_files() {
   local files=(
     "project.yml"
     ".env.release.example"
+    ".github/workflows/release-verify.yml"
     "exportOptions-testflight.plist"
     "Tanjjet/PrivacyInfo.xcprivacy"
     "TanjjetWidget/PrivacyInfo.xcprivacy"

@@ -79,6 +79,8 @@ TestFlight 설치 후 수동 QA 시나리오는 [`docs/testflight-qa-plan.md`](d
 scripts/verify-release.sh
 ```
 
+PR과 릴리즈 브랜치 푸시에서는 GitHub Actions의 `Release Verification` workflow가 같은 검증을 자동으로 실행합니다.
+
 Archive와 TestFlight 업로드:
 
 ```sh
