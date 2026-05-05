@@ -16,14 +16,21 @@ if [[ ! -d "$ARCHIVE_PATH" ]]; then
   exit 1
 fi
 
-AUTH_ARGS=()
+XCODEBUILD_ARGS=(
+  -exportArchive
+  -archivePath "$ARCHIVE_PATH"
+  -exportPath "$EXPORT_PATH"
+  -exportOptionsPlist "$EXPORT_OPTIONS"
+  -allowProvisioningUpdates
+)
+
 if [[ -n "$AUTH_KEY_PATH" || -n "$AUTH_KEY_ID" || -n "$AUTH_ISSUER_ID" ]]; then
   if [[ -z "$AUTH_KEY_PATH" || -z "$AUTH_KEY_ID" || -z "$AUTH_ISSUER_ID" ]]; then
     echo "Set APP_STORE_CONNECT_API_KEY_PATH, APP_STORE_CONNECT_API_KEY_ID, and APP_STORE_CONNECT_ISSUER_ID together." >&2
     exit 1
   fi
 
-  AUTH_ARGS=(
+  XCODEBUILD_ARGS+=(
     -authenticationKeyPath "$AUTH_KEY_PATH"
     -authenticationKeyID "$AUTH_KEY_ID"
     -authenticationKeyIssuerID "$AUTH_ISSUER_ID"
@@ -32,10 +39,4 @@ fi
 
 rm -rf "$EXPORT_PATH"
 
-xcodebuild \
-  -exportArchive \
-  -archivePath "$ARCHIVE_PATH" \
-  -exportPath "$EXPORT_PATH" \
-  -exportOptionsPlist "$EXPORT_OPTIONS" \
-  -allowProvisioningUpdates \
-  "${AUTH_ARGS[@]}"
+xcodebuild "${XCODEBUILD_ARGS[@]}"
