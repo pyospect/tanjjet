@@ -37,6 +37,12 @@ Korean handoff guide for the final credential-gated steps:
 docs/release-handoff-ko.md
 ```
 
+Korean completion audit that maps the original goal to concrete evidence and remaining blockers:
+
+```text
+docs/completion-audit-ko.md
+```
+
 ```sh
 scripts/verify-release.sh
 ```
