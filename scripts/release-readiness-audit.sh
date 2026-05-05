@@ -9,6 +9,7 @@ source scripts/load-release-env.sh
 load_tanjjet_release_env
 
 ARCHIVE_PATH="${ARCHIVE_PATH:-build/Tanjjet.xcarchive}"
+UPLOAD_LOG="${UPLOAD_LOG:-build/testflight-upload.log}"
 SUPPORT_URL="${SUPPORT_URL:-https://pyospect.github.io/tanjjet/support.html}"
 PRIVACY_URL="${PRIVACY_URL:-https://pyospect.github.io/tanjjet/privacy-policy.html}"
 
@@ -325,8 +326,18 @@ check_app_store_connect_auth() {
     return
   fi
 
-  if [[ -f build/testflight-upload.log ]] && grep -q "Failed to Use Accounts" build/testflight-upload.log; then
-    block "Latest TestFlight upload failed because Xcode has no App Store Connect account access for team 4Q2Q7M7G5X."
+  if [[ -f "$UPLOAD_LOG" ]]; then
+    if grep -Eq "App Store Connect access|Failed to Use Accounts|Failed to find an account" "$UPLOAD_LOG"; then
+      block "Latest TestFlight upload failed because Xcode has no App Store Connect account access for team 4Q2Q7M7G5X."
+      return
+    fi
+
+    if grep -q '\*\* EXPORT SUCCEEDED \*\*' "$UPLOAD_LOG"; then
+      ok "Latest TestFlight upload log reports a successful export/upload."
+      return
+    fi
+
+    warn "Latest TestFlight upload log does not clearly report success. Inspect $UPLOAD_LOG."
     return
   fi
 

@@ -70,3 +70,5 @@ EOF
   fi
   exit "$status"
 fi
+
+echo "TestFlight export/upload completed. Full export log: $UPLOAD_LOG"
